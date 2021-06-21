@@ -204,13 +204,13 @@ function RankPhase(props: {
       <div className="d-grid gap-2">
         {/* Use divs instead of buttons to prevent outlined borders on click. */}
         <div
-          className="btn btn-primary btn-lg choice"
+          className="btn btn-primary choice"
           onClick={() => mergeSortStep(leftOption)}
         >
           {leftOption}
         </div>
         <div
-          className="btn btn-primary btn-lg choice"
+          className="btn btn-primary choice"
           onClick={() => mergeSortStep(rightOption)}
         >
           {rightOption}
