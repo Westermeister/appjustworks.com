@@ -1,17 +1,35 @@
 // To fit in with the logo.
 $primary: #dc3545;
+// Dark mode variant.
+$primary-alt: #ba202f;
 
-// Go a little easier on the eyes with a lower contrast white and black.
+// Go a little easier on the eyes with a lower contrast white and black (light mode only).
+// Dark mode variants are handled automatically by bootstrap-dark.
 $white: #f5f5f5;
 $black: #2b2b2b;
 
-@import "bootstrap/scss/bootstrap";
+@import "bootstrap-dark-5/scss/bootstrap-dark";
 
 @import "./pages/rank";
 
 /**
- * Help the navbar stand out a bit.
+ * Navbar styling for light mode.
+ * Use pure white and have a thin gray bottom border.
+ * Not using Bootstrap's .border-bottom because Sass throws a fit when extending within a media query.
  */
-nav {
-  background-color: #ffffff;
+@media (prefers-color-scheme: light) {
+  nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid $gray-300;
+  }
+}
+
+/**
+ * Navbar styling for dark mode.
+ * Use a near-black background.
+ */
+@media (prefers-color-scheme: dark) {
+  nav {
+    background-color: #141414;
+  }
 }
