@@ -37,5 +37,5 @@ scripts: eslint prettier
 styles: prettier
 	rm -rf $(STYLES_DIR)/dist
 	$(SASS) $(STYLES_DIR)/src:$(STYLES_DIR)/dist $(SASS_FLAGS)
-	$(POSTCSS) $(STYLES_DIR)/dist/main.css --replace
 	$(PURGECSS) --css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,js}" --output $(STYLES_DIR)/dist/
+	$(POSTCSS) $(STYLES_DIR)/dist/main.css --replace
