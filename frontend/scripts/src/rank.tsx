@@ -71,6 +71,7 @@ function InputPhase(props: {
               className="form-control"
               type="text"
               value={input}
+              placeholder="A movie, a sports team... anything!"
               onChange={(e) => setInput(e.target.value)}
             />
           </div>
