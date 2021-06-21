@@ -64,14 +64,16 @@ function InputPhase(props: {
       </p>
       <p>Add each item below, in any order. You must add at least 2 items.</p>
       <form onSubmit={addEntry}>
-        <div className="mb-3">
-          <input
-            required
-            className="form-control"
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
+        <div className="row mb-3">
+          <div className="col-sm-8 col-md-6">
+            <input
+              required
+              className="form-control"
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </div>
         </div>
         {duplicate && <p className="text-danger">Item is already in list.</p>}
         <button type="submit" className="btn btn-primary">
