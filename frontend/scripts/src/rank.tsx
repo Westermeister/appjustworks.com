@@ -62,7 +62,7 @@ function InputPhase(props: {
       <p className="fst-italic mb-5">
         A simple, fast, and fun method to help you rank a list of items.
       </p>
-      <p>Add each item below, in any order.</p>
+      <p>Add each item below, in any order. You must add at least 2 items.</p>
       <form onSubmit={addEntry}>
         <div className="mb-3">
           <input
@@ -74,16 +74,9 @@ function InputPhase(props: {
           />
         </div>
         {duplicate && <p className="text-danger">Item is already in list.</p>}
-        <button
-          type="submit"
-          className="btn btn-primary"
-          aria-describedby="addHelp"
-        >
+        <button type="submit" className="btn btn-primary">
           Add
         </button>
-        <div id="addHelp" className="form-text">
-          You must add at least 2 items.
-        </div>
       </form>
       <ul className="list-group list-group-striped my-4">
         {renderEntries(props.items)}
