@@ -12,7 +12,7 @@ SCRIPTS_DIR=./frontend/scripts
 STYLES_DIR=./frontend/styles
 
 # Store non-IO options into these variables.
-SASS_FLAGS=--load-path=node_modules --no-source-map
+SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map
 TSC_FLAGS=--strict --target es2017 --module es2015 --jsx react --moduleResolution node
 UGLIFY_FLAGS=--compress --mangle
 
