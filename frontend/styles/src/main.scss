@@ -1,0 +1,17 @@
+// To fit in with the logo.
+$primary: #dc3545;
+
+// Go a little easier on the eyes with a lower contrast white and black.
+$white: #f5f5f5;
+$black: #2b2b2b;
+
+@import "bootstrap/scss/bootstrap";
+
+@import "./pages/rank";
+
+/**
+ * Help the navbar stand out a bit.
+ */
+nav {
+  background-color: #ffffff;
+}
