@@ -1,12 +1,15 @@
 // To fit in with the logo.
 $primary: #dc3545;
 // Dark mode variant.
-$primary-alt: #ba202f;
+$primary-alt: #b02a37;
 
 // Go a little easier on the eyes with a lower contrast white and black (light mode only).
 // Dark mode variants are handled automatically by bootstrap-dark.
 $white: #f5f5f5;
 $black: #2b2b2b;
+
+// Form placeholders in dark mode are a little too low contrast, so brighten them up a bit.
+$input-placeholder-color-alt: #808080;
 
 @import "bootstrap-dark-5/scss/bootstrap-dark";
 
