@@ -60,7 +60,8 @@ function InputPhase(props: {
     <div className="container-md">
       <h1>Rank a list of items</h1>
       <p className="fst-italic mb-5">
-        A simple, fast, and fun method to help you rank a list of items.
+        A simple, fast, and fun method to help you rank a list of items from
+        best to worst.
       </p>
       <p>Add each item below, in any order. You must add at least 2 items.</p>
       <form onSubmit={addEntry}>
@@ -71,9 +72,14 @@ function InputPhase(props: {
               className="form-control"
               type="text"
               value={input}
-              placeholder="A movie, a sports team... anything!"
               onChange={(e) => setInput(e.target.value)}
+              placeholder="Enter an item"
+              aria-describedby="inputHelp"
             />
+            <div id="inputHelp" className="form-text">
+              e.g. if you were ranking countries, you might add items like
+              "Japan" or "Germany"
+            </div>
           </div>
         </div>
         {duplicate && <p className="text-danger">Item is already in list.</p>}
