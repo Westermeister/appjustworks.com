@@ -217,7 +217,10 @@ function RankPhase(props: {
 
   return (
     <div className="container-md">
-      <h1 className="text-center mb-4">Which is better?</h1>
+      <h1 className="text-center">Which is better?</h1>
+      <p className="text-center fst-italic mb-3">
+        You will be repeatedly presented with two options.
+      </p>
       <div className="d-grid gap-2">
         {/* Use divs instead of buttons to prevent outlined borders on click. */}
         <div
