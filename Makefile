@@ -20,7 +20,7 @@ PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}"
 PURGECSS_FLAGS=--css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,js}" --output $(STYLES_DIR)/dist/
 SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map
 TSC_FLAGS=--strict --target es2017 --module es2015 --jsx react --moduleResolution node --outDir $(SCRIPTS_DIR)/dist
-UGLIFY_FLAGS=--compress --mangle
+UGLIFY_FLAGS=--compress --mangle --comments "/^!/"
 
 .PHONY: all
 all: eslint prettier scripts styles
