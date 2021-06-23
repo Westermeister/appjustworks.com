@@ -46,7 +46,7 @@ scripts: eslint prettier
 	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(GZIP) $(GZIP_FLAGS) $(file);)
 
 .PHONY: styles
-styles: prettier
+styles: prettier scripts
 	rm -rf $(STYLES_DIR)/dist
 	$(SASS) $(STYLES_DIR)/src:$(STYLES_DIR)/dist $(SASS_FLAGS)
 	$(PURGECSS) $(PURGECSS_FLAGS)
