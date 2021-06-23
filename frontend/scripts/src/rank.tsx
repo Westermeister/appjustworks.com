@@ -1,3 +1,11 @@
+/*!
+ * Copyright (C) 2021-Present Westermeister. All Rights Reserved.
+ * @preserve
+ */
+
+// Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
+"use strict";
+
 /**
  * Handles app functionality during input phase.
  * @param props - JSX properties.
