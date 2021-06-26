@@ -247,15 +247,34 @@ function RankPhase(props: {
  * @returns HTML for the results display.
  */
 function ResultsPhase(props: { items: string[] }): JSX.Element {
+  let rankingDownload = "data:text/plain;base64,";
+  let base64Data = "";
+  for (let i = 0; i < props.items.length; ++i) {
+    base64Data += `${i + 1}. ${props.items[i]}\n`;
+  }
+  base64Data = btoa(base64Data);
+  rankingDownload += base64Data;
+
   const renderResult = (item: string): JSX.Element => {
     return <li className="list-group-item">{item}</li>;
   };
   return (
     <div className="container-md">
       <h1 className="mb-5">Results</h1>
-      <ol className="list-group list-group-numbered">
+      <ol className="list-group list-group-numbered mb-5">
         {props.items.map((item) => renderResult(item))}
       </ol>
+      <a
+        className="btn btn-primary"
+        download="ranking.txt"
+        href={rankingDownload}
+        aria-describedby="downloadHelp"
+      >
+        Download
+      </a>
+      <div id="downloadHelp" className="form-text">
+        Save your ranking as a text file.
+      </div>
     </div>
   );
 }
