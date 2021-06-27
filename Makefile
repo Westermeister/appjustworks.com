@@ -25,7 +25,7 @@ TSC_FLAGS=--strict --target es2017 --module es2015 --jsx react --moduleResolutio
 UGLIFY_FLAGS=--compress --mangle --comments "/^!/"
 
 .PHONY: all
-all: eslint prettier scripts styles
+all: eslint html prettier scripts styles
 
 .PHONY: eslint
 eslint: prettier
