@@ -112,6 +112,50 @@ function InputPhase(props: {
 }
 
 /**
+ * A variant of the input phase specifically for a premade list of items that was shared via a link.
+ * @param props - JSX properties.
+ * @param props.items - The items to be ranked.
+ * @param props.onPhaseChange - Sets app phase.
+ */
+function SharePhase(props: {
+  items: string[];
+  onPhaseChange: (phase: string) => void;
+}) {
+  const renderItems = (items: string[]): JSX.Element[] => {
+    const retval = [];
+    for (const item of items) {
+      retval.push(<li className="list-group-item">{item}</li>);
+    }
+    return retval;
+  };
+
+  return (
+    <div className="container-md">
+      <h1>Rank a list of items</h1>
+      <p className="fst-italic mb-5">
+        A simple, fast, and fun method to help you rank a list of items from
+        best to worst.
+      </p>
+      <p>
+        This is a premade list of items. You can get started with the ranking
+        process using the button below, or you can{" "}
+        <a href="/apps/rank">create your own list.</a>
+      </p>
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => props.onPhaseChange("rank")}
+      >
+        Rank this list
+      </button>
+      <ul className="list-group list-group-striped my-4">
+        {renderItems(props.items)}
+      </ul>
+    </div>
+  );
+}
+
+/**
  * Implements ranking phase of app via bottom-up mergesort.
  * @param props - JSX properties.
  * @param props.items - The items to be ranked.
@@ -316,7 +360,7 @@ function App(): JSX.Element {
   let phase_init = "input";
   if (items_param !== null) {
     items_init = JSON.parse(decodeURIComponent(items_param));
-    phase_init = "rank";
+    phase_init = "share";
   }
 
   const [items, setItems] = React.useState(items_init);
@@ -333,6 +377,8 @@ function App(): JSX.Element {
         onPhaseChange={handlePhaseChange}
       />
     );
+  } else if (phase === "share") {
+    return <SharePhase items={items} onPhaseChange={handlePhaseChange} />;
   } else if (phase === "rank") {
     return (
       <RankPhase
