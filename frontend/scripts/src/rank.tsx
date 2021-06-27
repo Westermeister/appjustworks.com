@@ -217,7 +217,7 @@ function RankPhase(props: {
 
   return (
     <div className="container-md">
-      <h1 className="text-center">Which is better?</h1>
+      <h1 className="text-center">Rank it: Which is better?</h1>
       <p className="text-center fst-italic mb-3">
         You will be repeatedly presented with two options.
       </p>
@@ -247,6 +247,7 @@ function RankPhase(props: {
  * @returns HTML for the results display.
  */
 function ResultsPhase(props: { items: string[] }): JSX.Element {
+  // Code for "Download" button.
   let rankingDownload = "data:text/plain;base64,";
   let base64Data = "";
   for (let i = 0; i < props.items.length; ++i) {
@@ -255,6 +256,18 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   base64Data = btoa(base64Data);
   rankingDownload += base64Data;
 
+  // Code for "Copy quiz link" button.
+  let quizLink = window.location.href;
+  const is_shared_link = !!new URLSearchParams(window.location.search).get(
+    "items"
+  );
+  if (!is_shared_link) {
+    quizLink += "?items=";
+    quizLink += encodeURIComponent(JSON.stringify(props.items));
+  }
+  const [copied, setCopied] = React.useState(false);
+
+  // Code for rendering the component.
   const renderResult = (item: string): JSX.Element => {
     return <li className="list-group-item">{item}</li>;
   };
@@ -272,8 +285,22 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
       >
         Download
       </a>
-      <div id="downloadHelp" className="form-text">
+      <div id="downloadHelp" className="form-text mb-4">
         Save your ranking as a text file.
+      </div>
+      <div className="d-flex align-items-center">
+        <button
+          className="btn btn-primary btn-copy"
+          data-clipboard-text={quizLink}
+          aria-describedby="copyHelp"
+          onClick={() => setCopied(true)}
+        >
+          Copy quiz link
+        </button>
+        {copied && <span className="text-success ms-3">Copied!</span>}
+      </div>
+      <div id="copyHelp" className="form-text">
+        Share with others so they can rank these items too!
       </div>
     </div>
   );
@@ -284,8 +311,16 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
  * @returns The HTML to be rendered.
  */
 function App(): JSX.Element {
-  const [items, setItems] = React.useState([] as string[]);
-  const [phase, setPhase] = React.useState("input");
+  const items_param = new URLSearchParams(window.location.search).get("items");
+  let items_init: string[] = [];
+  let phase_init = "input";
+  if (items_param !== null) {
+    items_init = JSON.parse(decodeURIComponent(items_param));
+    phase_init = "rank";
+  }
+
+  const [items, setItems] = React.useState(items_init);
+  const [phase, setPhase] = React.useState(phase_init);
 
   const handleItemsChange = (items: string[]): void => setItems(items);
   const handlePhaseChange = (phase: string): void => setPhase(phase);
