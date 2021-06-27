@@ -137,8 +137,8 @@ function SharePhase(props: {
         best to worst.
       </p>
       <p>
-        This is a premade list of items. You can get started with the ranking
-        process using the button below, or you can{" "}
+        This is a premade list of items. You can start the ranking process using
+        the button below, or you can{" "}
         <a href="/apps/rank">create your own list.</a>
       </p>
       <button
@@ -146,7 +146,7 @@ function SharePhase(props: {
         className="btn btn-primary"
         onClick={() => props.onPhaseChange("rank")}
       >
-        Rank this list
+        Begin ranking
       </button>
       <ul className="list-group list-group-striped my-4">
         {renderItems(props.items)}
