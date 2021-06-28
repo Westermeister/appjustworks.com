@@ -16,11 +16,15 @@
  */
 function InputPhase(props: {
   items: string[];
+  premade: boolean;
   onItemsChange: (items: string[]) => void;
   onPhaseChange: (phase: string) => void;
 }): JSX.Element {
   const [input, setInput] = React.useState("");
   const [duplicate, setDuplicate] = React.useState(false);
+
+  // The "modify" link only exists (and thus can only be clicked) when the premade prop is true.
+  const [modifyClicked, setModifyClicked] = React.useState(false);
 
   const addEntry = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -48,18 +52,22 @@ function InputPhase(props: {
   const renderEntries = (items: string[]): JSX.Element[] => {
     const retval = [];
     for (const entry of items) {
-      retval.push(
-        <li className="list-group-item">
-          <span
-            className="pointer-hover text-danger"
-            onClick={() => removeEntry(entry)}
-          >
-            X
-          </span>
-          {/* Horizontal margins have no effect. Use this for now. */}
-          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{entry}</span>
-        </li>
-      );
+      if (props.premade && !modifyClicked) {
+        retval.push(<li className="list-group-item">{entry}</li>);
+      } else {
+        retval.push(
+          <li className="list-group-item">
+            <span
+              className="pointer-hover text-danger"
+              onClick={() => removeEntry(entry)}
+            >
+              X
+            </span>
+            {/* Horizontal margins have no effect. Use this for now. */}
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{entry}</span>
+          </li>
+        );
+      }
     }
     return retval;
   };
@@ -71,34 +79,60 @@ function InputPhase(props: {
         A simple, fast, and fun method to help you rank a list of items from
         best to worst.
       </p>
-      <p>Add each item below, in any order. You must add at least 2 items.</p>
-      <form onSubmit={addEntry}>
-        <div className="row mb-3">
-          <div className="col-sm-8 col-md-6">
-            <input
-              required
-              className="form-control"
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Enter an item"
-              aria-describedby="inputHelp"
-            />
-            <div id="inputHelp" className="form-text">
-              e.g. if you were ranking countries, you might add items like
-              "Japan" or "Germany"
+      {props.premade && !modifyClicked && (
+        <>
+          <p>
+            This is a premade list. If you want, you can{" "}
+            <a
+              href="javascript:void(0);"
+              onClick={() => setModifyClicked(true)}
+            >
+              modify it
+            </a>{" "}
+            before you begin ranking or{" "}
+            <a href="/apps/rank">make your own from scratch.</a>
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => props.onPhaseChange("rank")}
+          >
+            Begin ranking
+          </button>
+        </>
+      )}
+      {(!props.premade || modifyClicked) && (
+        <p>Add each item below, in any order. You must add at least 2 items.</p>
+      )}
+      {(!props.premade || modifyClicked) && (
+        <form onSubmit={addEntry}>
+          <div className="row mb-3">
+            <div className="col-sm-8 col-md-6">
+              <input
+                required
+                className="form-control"
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Enter an item"
+                aria-describedby="inputHelp"
+              />
+              {!props.premade && (
+                <div id="inputHelp" className="form-text">
+                  e.g. if you were ranking countries, you might add items like
+                  "Japan" or "Germany"
+                </div>
+              )}
             </div>
           </div>
-        </div>
-        {duplicate && <p className="text-danger">Item is already in list.</p>}
-        <button type="submit" className="btn btn-primary">
-          Add
-        </button>
-      </form>
-      <ul className="list-group list-group-striped my-4">
-        {renderEntries(props.items)}
-      </ul>
-      {props.items.length >= 2 && (
+          {duplicate && <p className="text-danger">Item is already in list.</p>}
+          <button type="submit" className="btn btn-primary">
+            Add
+          </button>
+        </form>
+      )}
+      <ul className="list-group my-4">{renderEntries(props.items)}</ul>
+      {(!props.premade || modifyClicked) && props.items.length >= 2 && (
         <button
           type="button"
           className="btn btn-primary"
@@ -107,50 +141,6 @@ function InputPhase(props: {
           Next
         </button>
       )}
-    </div>
-  );
-}
-
-/**
- * A variant of the input phase specifically for a premade list of items that was shared via a link.
- * @param props - JSX properties.
- * @param props.items - The items to be ranked.
- * @param props.onPhaseChange - Sets app phase.
- */
-function SharePhase(props: {
-  items: string[];
-  onPhaseChange: (phase: string) => void;
-}) {
-  const renderItems = (items: string[]): JSX.Element[] => {
-    const retval = [];
-    for (const item of items) {
-      retval.push(<li className="list-group-item">{item}</li>);
-    }
-    return retval;
-  };
-
-  return (
-    <div className="container-md">
-      <h1>Rank a list of items</h1>
-      <p className="fst-italic mb-5">
-        A simple, fast, and fun method to help you rank a list of items from
-        best to worst.
-      </p>
-      <p>
-        This is a premade list of items. You can start the ranking process using
-        the button below, or you can{" "}
-        <a href="/apps/rank">create your own list.</a>
-      </p>
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => props.onPhaseChange("rank")}
-      >
-        Begin ranking
-      </button>
-      <ul className="list-group list-group-striped my-4">
-        {renderItems(props.items)}
-      </ul>
     </div>
   );
 }
@@ -302,13 +292,9 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
 
   // Code for "Copy quiz link" button.
   let quizLink = window.location.href;
-  const is_shared_link = !!new URLSearchParams(window.location.search).get(
-    "items"
-  );
-  if (!is_shared_link) {
-    quizLink += "?items=";
-    quizLink += encodeURIComponent(JSON.stringify(props.items));
-  }
+  quizLink = quizLink.replace(window.location.search, "");
+  quizLink += "?items=";
+  quizLink += encodeURIComponent(JSON.stringify(props.items));
   const [copied, setCopied] = React.useState(false);
 
   // Code for rendering the component.
@@ -357,14 +343,14 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
 function App(): JSX.Element {
   const items_param = new URLSearchParams(window.location.search).get("items");
   let items_init: string[] = [];
-  let phase_init = "input";
+  let premade = false;
   if (items_param !== null) {
     items_init = JSON.parse(decodeURIComponent(items_param));
-    phase_init = "share";
+    premade = true;
   }
 
   const [items, setItems] = React.useState(items_init);
-  const [phase, setPhase] = React.useState(phase_init);
+  const [phase, setPhase] = React.useState("input");
 
   const handleItemsChange = (items: string[]): void => setItems(items);
   const handlePhaseChange = (phase: string): void => setPhase(phase);
@@ -373,12 +359,11 @@ function App(): JSX.Element {
     return (
       <InputPhase
         items={items}
+        premade={premade}
         onItemsChange={handleItemsChange}
         onPhaseChange={handlePhaseChange}
       />
     );
-  } else if (phase === "share") {
-    return <SharePhase items={items} onPhaseChange={handlePhaseChange} />;
   } else if (phase === "rank") {
     return (
       <RankPhase
