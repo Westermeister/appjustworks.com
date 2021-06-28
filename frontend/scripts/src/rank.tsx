@@ -6,6 +6,9 @@
 // Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
 "use strict";
 
+declare const Base64: {
+  encode: (src: string, urlsafe?: boolean) => string;
+};
 declare const LZString: any;
 
 /**
@@ -289,7 +292,7 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   for (let i = 0; i < props.items.length; ++i) {
     base64Data += `${i + 1}. ${props.items[i]}\n`;
   }
-  base64Data = btoa(base64Data);
+  base64Data = Base64.encode(base64Data);
   rankingDownload += base64Data;
 
   // Code for "Copy quiz link" button.
