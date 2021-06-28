@@ -9,7 +9,11 @@
 declare const Base64: {
   encode: (src: string, urlsafe?: boolean) => string;
 };
-declare const LZString: any;
+
+declare const LZString: {
+  compressToEncodedURIComponent: (input: string) => string;
+  decompressFromEncodedURIComponent: (compressed: string) => string;
+};
 
 /**
  * Handles app functionality during input phase.
