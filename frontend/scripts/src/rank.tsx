@@ -341,9 +341,10 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
         </button>
         {copied && <span className="text-success ms-3">Copied!</span>}
       </div>
-      <div id="copyHelp" className="form-text">
+      <div id="copyHelp" className="form-text mb-4">
         Share with others so they can rank these items too!
       </div>
+      <a href="/apps/rank">Back to beginning</a>
     </div>
   );
 }
