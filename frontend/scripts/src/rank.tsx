@@ -10,6 +10,8 @@ declare const Base64: {
   encode: (src: string, urlsafe?: boolean) => string;
 };
 
+declare const ClipboardJS: any;
+
 declare const LZString: {
   compressToEncodedURIComponent: (input: string) => string;
   decompressFromEncodedURIComponent: (compressed: string) => string;
@@ -300,6 +302,7 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   rankingDownload += base64Data;
 
   // Code for "Copy quiz link" button.
+  new ClipboardJS(".btn-copy");
   let quizLink = window.location.href;
   quizLink = quizLink.replace(window.location.search, "");
   quizLink += "?items=";
