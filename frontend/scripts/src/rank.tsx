@@ -21,6 +21,7 @@ declare const LZString: {
  * Handles app functionality during input phase.
  * @param props - JSX properties.
  * @param props.items - Holds items to be ranked.
+ * @param props.premade - Whether or not there's a premade list of items.
  * @param props.onItemsChange - Sets state of items.
  * @param props.onPhaseChange - Sets app phase.
  * @returns The HTML to be rendered.
@@ -31,13 +32,14 @@ function InputPhase(props: {
   onItemsChange: (items: string[]) => void;
   onPhaseChange: (phase: string) => void;
 }): JSX.Element {
+  // Used to manage form for item addition.
   const [input, setInput] = React.useState("");
+  // Used to conditionally render an error message given a duplicate item.
   const [duplicate, setDuplicate] = React.useState(false);
-
   // The "modify" link only exists (and thus can only be clicked) when the premade prop is true.
   const [modifyClicked, setModifyClicked] = React.useState(false);
 
-  const addEntry = (e: React.FormEvent<HTMLFormElement>): void => {
+  const addItem = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (props.items.includes(input)) {
       setDuplicate(true);
@@ -49,7 +51,7 @@ function InputPhase(props: {
     setInput("");
   };
 
-  const removeEntry = (text: string): void => {
+  const removeItem = (text: string): void => {
     const new_items = [...props.items];
     for (let i = new_items.length - 1; i >= 0; --i) {
       if (new_items[i] === text) {
@@ -60,22 +62,21 @@ function InputPhase(props: {
     props.onItemsChange(new_items);
   };
 
-  const renderEntries = (items: string[]): JSX.Element[] => {
+  const renderItems = (items: string[]): JSX.Element[] => {
     const retval = [];
-    for (const entry of items) {
+    for (const item of items) {
       if (props.premade && !modifyClicked) {
-        retval.push(<li className="list-group-item">{entry}</li>);
+        retval.push(<li className="list-group-item">{item}</li>);
       } else {
         retval.push(
           <li className="list-group-item">
             <span
-              className="pointer-hover text-danger"
-              onClick={() => removeEntry(entry)}
+              className="pointer-hover text-danger me-4"
+              onClick={() => removeItem(item)}
             >
               X
             </span>
-            {/* Horizontal margins have no effect. Use this for now. */}
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{entry}</span>
+            <span>{item}</span>
           </li>
         );
       }
@@ -116,7 +117,7 @@ function InputPhase(props: {
         <p>Add each item below, in any order. You must add at least 2 items.</p>
       )}
       {(!props.premade || modifyClicked) && (
-        <form onSubmit={addEntry}>
+        <form onSubmit={addItem}>
           <div className="row mb-3">
             <div className="col-sm-8 col-md-6">
               <input
@@ -142,7 +143,7 @@ function InputPhase(props: {
           </button>
         </form>
       )}
-      <ul className="list-group my-4">{renderEntries(props.items)}</ul>
+      <ul className="list-group my-4">{renderItems(props.items)}</ul>
       {(!props.premade || modifyClicked) && props.items.length >= 2 && (
         <button
           type="button"
@@ -292,7 +293,7 @@ function RankPhase(props: {
  * @returns HTML for the results display.
  */
 function ResultsPhase(props: { items: string[] }): JSX.Element {
-  // Code for "Download" button.
+  // Encode results in base64 for the download button.
   let rankingDownload = "data:text/plain;base64,";
   let base64Data = "";
   for (let i = 0; i < props.items.length; ++i) {
@@ -301,8 +302,10 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   base64Data = Base64.encode(base64Data);
   rankingDownload += base64Data;
 
-  // Code for "Copy quiz link" button.
+  // Enable copy functionality for the copy button.
   new ClipboardJS(".btn-copy");
+
+  // Generate the link to be copied using the copy button.
   let quizLink = window.location.href;
   quizLink = quizLink.replace(window.location.search, "");
   quizLink += "?items=";
@@ -310,6 +313,8 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
     JSON.stringify(props.items)
   );
   quizLink += compressed_items;
+
+  // Used to conditionally render feedback upon clicking the copy button.
   const [copied, setCopied] = React.useState(false);
 
   // For demoing the compression.
@@ -319,10 +324,10 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   console.log(compressed_items);
   console.log(uncompressed_items);
 
-  // Code for rendering the component.
   const renderResult = (item: string): JSX.Element => {
     return <li className="list-group-item">{item}</li>;
   };
+
   return (
     <div className="container-md">
       <h1 className="mb-5">Results</h1>
@@ -349,7 +354,7 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
         >
           Copy quiz link
         </button>
-        {copied && <span className="text-success ms-3">Copied!</span>}
+        {copied && <span className="ms-3">Copied!</span>}
       </div>
       <div id="copyHelp" className="form-text mb-4">
         Share with others so they can rank these items too!
@@ -364,6 +369,7 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
  * @returns The HTML to be rendered.
  */
 function App(): JSX.Element {
+  // Check if this is a shared link; if so, mark as such and fill in the premade list of items.
   const items_param = new URLSearchParams(window.location.search).get("items");
   let items_init: string[] = [];
   let premade = false;
@@ -374,7 +380,9 @@ function App(): JSX.Element {
     premade = true;
   }
 
+  // Holds the items; initially in arbitrary order. After ranking, will be from best to worst.
   const [items, setItems] = React.useState(items_init);
+  // Controls application's "phase" i.e. user doing input, user doing rankings, or user viewing results.
   const [phase, setPhase] = React.useState("input");
 
   const handleItemsChange = (items: string[]): void => setItems(items);
@@ -400,11 +408,7 @@ function App(): JSX.Element {
   } else if (phase === "results") {
     return <ResultsPhase items={items} />;
   } else {
-    return (
-      <div className="container-md">
-        <p>If you can see this, the website's developer made a boo-boo :(</p>
-      </div>
-    );
+    return <div></div>;
   }
 }
 
