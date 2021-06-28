@@ -6,6 +6,8 @@
 // Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
 "use strict";
 
+declare const LZString: any;
+
 /**
  * Handles app functionality during input phase.
  * @param props - JSX properties.
@@ -294,8 +296,18 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   let quizLink = window.location.href;
   quizLink = quizLink.replace(window.location.search, "");
   quizLink += "?items=";
-  quizLink += encodeURIComponent(JSON.stringify(props.items));
+  const compressed_items = LZString.compressToEncodedURIComponent(
+    JSON.stringify(props.items)
+  );
+  quizLink += compressed_items;
   const [copied, setCopied] = React.useState(false);
+
+  // For demoing the compression.
+  const uncompressed_items = encodeURIComponent(JSON.stringify(props.items));
+  console.log(`With compression: ${compressed_items.length} chars`);
+  console.log(`Without compression: ${uncompressed_items.length} chars`);
+  console.log(compressed_items);
+  console.log(uncompressed_items);
 
   // Code for rendering the component.
   const renderResult = (item: string): JSX.Element => {
@@ -345,7 +357,9 @@ function App(): JSX.Element {
   let items_init: string[] = [];
   let premade = false;
   if (items_param !== null) {
-    items_init = JSON.parse(decodeURIComponent(items_param));
+    items_init = JSON.parse(
+      LZString.decompressFromEncodedURIComponent(items_param)
+    );
     premade = true;
   }
 
