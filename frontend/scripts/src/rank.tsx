@@ -319,10 +319,12 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
 
   // For demoing the compression.
   const uncompressed_items = encodeURIComponent(JSON.stringify(props.items));
-  console.log(`With compression: ${compressed_items.length} chars`);
-  console.log(`Without compression: ${uncompressed_items.length} chars`);
-  console.log(compressed_items);
-  console.log(uncompressed_items);
+  let ratio = compressed_items.length / uncompressed_items.length;
+  ratio *= 100;
+  ratio = 2 * Math.round(ratio / 2); // Banker's rounding.
+  console.log(
+    `Compressed items to ${ratio}% of original (${compressed_items.length} vs. ${uncompressed_items.length} chars)`
+  );
 
   const renderResult = (item: string): JSX.Element => {
     return <li className="list-group-item">{item}</li>;
