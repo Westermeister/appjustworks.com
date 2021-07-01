@@ -338,14 +338,14 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
       </ol>
       <a
         className="btn btn-primary"
-        download="ranking.txt"
+        download="results.txt"
         href={rankingDownload}
         aria-describedby="downloadHelp"
       >
         Download
       </a>
       <div id="downloadHelp" className="form-text mb-4">
-        Save your ranking as a text file.
+        Save your results as a text file.
       </div>
       <div className="d-flex align-items-center">
         <button
