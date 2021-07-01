@@ -89,7 +89,7 @@ test("Back to beginning", async ({ page }) => {
   expect(heading).toEqual("Rank a list of items");
 });
 
-test("Premade list", async ({ page }) => {
+test("Shared list initial page", async ({ page }) => {
   // Go to a shared link.
   await page.goto(
     "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
