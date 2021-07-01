@@ -107,3 +107,66 @@ test("Premade list", async ({ page }) => {
   const text = await startButton.innerText();
   expect(text).toEqual("Begin ranking");
 });
+
+test("From shared list to make-your-own", async ({ page }) => {
+  // Go to a shared link.
+  await page.goto(
+    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+  );
+
+  // Click the "make your own" link.
+  await page.click("'make your own'");
+  const url = page.url();
+  expect(url).toEqual("http://localhost:8080/apps/rank");
+});
+
+test("Use shared list and begin ranking", async ({ page }) => {
+  // Go to a shared link, and start ranking.
+  await page.goto(
+    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+  );
+  await page.click("'Begin ranking'");
+  await page.click("'3'");
+  await page.click("'1'");
+  await page.click("'1'");
+  await page.click("'2'");
+
+  // That should give us a ranking of: 1, 2, 3, 4
+  const results = await page.$$("#app li");
+  expect(await results[0].innerText()).toEqual("1");
+  expect(await results[1].innerText()).toEqual("2");
+  expect(await results[2].innerText()).toEqual("3");
+  expect(await results[3].innerText()).toEqual("4");
+});
+
+test("From shared list to custom one", async ({ page }) => {
+  // Go to a shared link and click
+  await page.goto(
+    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+  );
+
+  // Now modify the list. Remove the first 2 items: 1 and 2.
+  await page.click("'modify it'");
+  await page.click("'X'");
+  await page.click("'X'");
+
+  // Add some other stuff instead.
+  await page.fill("#app input", "a");
+  await page.click("'Add'");
+  await page.fill("#app input", "b");
+  await page.click("'Add'");
+
+  // Now do the ranking process.
+  await page.click("'Next'");
+  await page.click("'a'");
+  await page.click("'3'");
+  await page.click("'a'");
+  await page.click("'b'");
+
+  // That should give us a ranking of: a, b, 3, 4
+  const results = await page.$$("#app li");
+  expect(await results[0].innerText()).toEqual("a");
+  expect(await results[1].innerText()).toEqual("b");
+  expect(await results[2].innerText()).toEqual("3");
+  expect(await results[3].innerText()).toEqual("4");
+});
