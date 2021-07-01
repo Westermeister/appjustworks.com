@@ -2,6 +2,7 @@
 ESLINT=npx eslint
 GZIP=gzip
 OBFUSCATOR=npx javascript-obfuscator
+PLAYWRIGHT=npx playwright
 POSTCSS=NODE_ENV=production npx postcss
 PRETTIER=npx prettier
 PURGECSS=npx purgecss
@@ -17,15 +18,24 @@ STYLES_DIR=$(WEBROOT)/styles
 # Store flags into these variables.
 GZIP_FLAGS=-9 --keep --force
 OBFUSCATOR_FLAGS=--options-preset medium-obfuscation
+PLAYWRIGHT_FLAGS=--browser=all
 POSTCSS_FLAGS=--replace
-PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}"
+PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}" "./tests/**/*.spec.ts"
 PURGECSS_FLAGS=--css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,tsx}" --output $(STYLES_DIR)/dist/
 SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
 TSC_FLAGS=--strict --target es2017 --module es2015 --jsx react --moduleResolution node --outDir $(SCRIPTS_DIR)/dist
 UGLIFY_FLAGS=--compress --mangle --comments "/^!/"
 
+# BEGIN: Standard targets.
+
 .PHONY: all
 all: eslint html prettier scripts styles
+
+.PHONY: check
+check: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS)
+
+# END: Standard targets.
 
 .PHONY: eslint
 eslint: prettier
