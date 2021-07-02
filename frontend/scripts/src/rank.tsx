@@ -342,10 +342,10 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
         href={rankingDownload}
         aria-describedby="downloadHelp"
       >
-        Download
+        Save results
       </a>
       <div id="downloadHelp" className="form-text mb-4">
-        Save your results as a text file.
+        Download results as a text file.
       </div>
       <div className="d-flex align-items-center">
         <button
@@ -354,12 +354,12 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
           aria-describedby="copyHelp"
           onClick={() => setCopied(true)}
         >
-          Copy quiz link
+          Share quiz
         </button>
-        {copied && <span className="ms-3">Copied!</span>}
+        {copied && <span className="ms-3">Link copied!</span>}
       </div>
       <div id="copyHelp" className="form-text mb-4">
-        Share with others so they can rank these items too!
+        So others can rank these exact items and get their own result!
       </div>
       <a href="/apps/rank">Back to beginning</a>
     </div>
