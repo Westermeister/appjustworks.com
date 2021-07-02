@@ -1,6 +1,6 @@
 /*!
- * Copyright (C) 2021-Present Westermeister. All Rights Reserved.
  * @preserve
+ * Copyright (C) 2021-Present Westermeister. All Rights Reserved.
  */
 
 // Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
