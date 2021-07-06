@@ -16,23 +16,16 @@ $input-placeholder-color-alt: #808080;
 @import "./pages/rank";
 
 /**
- * Navbar styling for light mode.
- * Use pure white and have a thin gray bottom border.
- * Not using Bootstrap's .border-bottom because Sass throws a fit when extending within a media query.
+ * Navbar styling for light and dark modes.
+ * Background is flush with rest of the page i.e. no visible borders.
  */
 @media (prefers-color-scheme: light) {
   nav {
-    background-color: #ffffff;
-    border-bottom: 1px solid $gray-300;
+    background-color: $body-bg;
   }
 }
-
-/**
- * Navbar styling for dark mode.
- * Use a near-black background.
- */
 @media (prefers-color-scheme: dark) {
   nav {
-    background-color: #141414;
+    background-color: $body-bg-alt;
   }
 }
