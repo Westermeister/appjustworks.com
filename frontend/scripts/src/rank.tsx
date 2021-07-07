@@ -86,73 +86,81 @@ function InputPhase(props: {
 
   return (
     <div className="container-md">
-      <h1>Rank a list of items</h1>
-      <p className="fst-italic mb-5">
-        A simple, fast, and fun method to help you rank a list of items from
-        best to worst.
-      </p>
-      {props.premade && !modifyClicked && (
-        <>
-          <p>
-            This is a premade list. If you want, you can{" "}
-            <a
-              href="javascript:void(0);"
-              onClick={() => setModifyClicked(true)}
+      <header>
+        <h1>Rank a list of items</h1>
+        <p className="fst-italic mb-5">
+          A simple, fast, and fun method to help you rank a list of items from
+          best to worst.
+        </p>
+      </header>
+      <main>
+        {props.premade && !modifyClicked && (
+          <>
+            <p>
+              This is a premade list. If you want, you can{" "}
+              <a
+                href="javascript:void(0);"
+                onClick={() => setModifyClicked(true)}
+              >
+                modify it
+              </a>{" "}
+              before you begin, or <a href="/apps/rank">make your own</a> from
+              scratch.
+            </p>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => props.onPhaseChange("rank")}
             >
-              modify it
-            </a>{" "}
-            before you begin, or <a href="/apps/rank">make your own</a> from
-            scratch.
+              Begin ranking
+            </button>
+          </>
+        )}
+        {(!props.premade || modifyClicked) && (
+          <p>
+            Add each item below, in any order. You must add at least 2 items.
           </p>
+        )}
+        {(!props.premade || modifyClicked) && (
+          <form onSubmit={addItem}>
+            <div className="row mb-3">
+              <div className="col-sm-8 col-md-6">
+                <input
+                  required
+                  className="form-control"
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="Enter an item"
+                  aria-describedby="inputHelp"
+                />
+                {!props.premade && (
+                  <div id="inputHelp" className="form-text">
+                    e.g. if you were ranking countries, you might add items like
+                    "Japan" or "Germany"
+                  </div>
+                )}
+              </div>
+            </div>
+            {duplicate && (
+              <p className="text-danger">Item is already in list.</p>
+            )}
+            <button type="submit" className="btn btn-primary">
+              Add
+            </button>
+          </form>
+        )}
+        <ul className="list-group my-4">{renderItems(props.items)}</ul>
+        {(!props.premade || modifyClicked) && props.items.length >= 2 && (
           <button
             type="button"
             className="btn btn-primary"
             onClick={() => props.onPhaseChange("rank")}
           >
-            Begin ranking
+            Next
           </button>
-        </>
-      )}
-      {(!props.premade || modifyClicked) && (
-        <p>Add each item below, in any order. You must add at least 2 items.</p>
-      )}
-      {(!props.premade || modifyClicked) && (
-        <form onSubmit={addItem}>
-          <div className="row mb-3">
-            <div className="col-sm-8 col-md-6">
-              <input
-                required
-                className="form-control"
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Enter an item"
-                aria-describedby="inputHelp"
-              />
-              {!props.premade && (
-                <div id="inputHelp" className="form-text">
-                  e.g. if you were ranking countries, you might add items like
-                  "Japan" or "Germany"
-                </div>
-              )}
-            </div>
-          </div>
-          {duplicate && <p className="text-danger">Item is already in list.</p>}
-          <button type="submit" className="btn btn-primary">
-            Add
-          </button>
-        </form>
-      )}
-      <ul className="list-group my-4">{renderItems(props.items)}</ul>
-      {(!props.premade || modifyClicked) && props.items.length >= 2 && (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => props.onPhaseChange("rank")}
-        >
-          Next
-        </button>
-      )}
+        )}
+      </main>
     </div>
   );
 }
@@ -263,25 +271,29 @@ function RankPhase(props: {
 
   return (
     <div className="container-md">
-      <h1 className="text-center">Rank it: Which is better?</h1>
-      <p className="text-center fst-italic mb-3">
-        You will be repeatedly presented with two options.
-      </p>
-      <div className="d-grid gap-2">
-        {/* Use divs instead of buttons to prevent outlined borders on click. */}
-        <div
-          className="btn btn-primary choice"
-          onClick={() => mergeSortStep(leftOption)}
-        >
-          {leftOption}
+      <header>
+        <h1 className="text-center">Rank it: Which is better?</h1>
+        <p className="text-center fst-italic mb-3">
+          You will be repeatedly presented with two options.
+        </p>
+      </header>
+      <main>
+        <div className="d-grid gap-2">
+          {/* Use divs instead of buttons to prevent outlined borders on click. */}
+          <div
+            className="btn btn-primary choice"
+            onClick={() => mergeSortStep(leftOption)}
+          >
+            {leftOption}
+          </div>
+          <div
+            className="btn btn-primary choice"
+            onClick={() => mergeSortStep(rightOption)}
+          >
+            {rightOption}
+          </div>
         </div>
-        <div
-          className="btn btn-primary choice"
-          onClick={() => mergeSortStep(rightOption)}
-        >
-          {rightOption}
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
@@ -333,35 +345,37 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
   return (
     <div className="container-md">
       <h1 className="mb-5">Results</h1>
-      <ol className="list-group list-group-numbered mb-5">
-        {props.items.map((item) => renderResult(item))}
-      </ol>
-      <a
-        className="btn btn-primary"
-        download="results.txt"
-        href={rankingDownload}
-        aria-describedby="downloadHelp"
-      >
-        Save results
-      </a>
-      <div id="downloadHelp" className="form-text mb-4">
-        Download results as a text file.
-      </div>
-      <div className="d-flex align-items-center">
-        <button
-          className="btn btn-primary btn-copy"
-          data-clipboard-text={quizLink}
-          aria-describedby="copyHelp"
-          onClick={() => setCopied(true)}
+      <main>
+        <ol className="list-group list-group-numbered mb-5">
+          {props.items.map((item) => renderResult(item))}
+        </ol>
+        <a
+          className="btn btn-primary"
+          download="results.txt"
+          href={rankingDownload}
+          aria-describedby="downloadHelp"
         >
-          Share quiz
-        </button>
-        {copied && <span className="ms-3">Link copied!</span>}
-      </div>
-      <div id="copyHelp" className="form-text mb-4">
-        So others can rank these exact items and get their own result!
-      </div>
-      <a href="/apps/rank">Back to beginning</a>
+          Save results
+        </a>
+        <div id="downloadHelp" className="form-text mb-4">
+          Download results as a text file.
+        </div>
+        <div className="d-flex align-items-center">
+          <button
+            className="btn btn-primary btn-copy"
+            data-clipboard-text={quizLink}
+            aria-describedby="copyHelp"
+            onClick={() => setCopied(true)}
+          >
+            Share quiz
+          </button>
+          {copied && <span className="ms-3">Link copied!</span>}
+        </div>
+        <div id="copyHelp" className="form-text mb-4">
+          So others can rank these exact items and get their own result!
+        </div>
+        <a href="/apps/rank">Back to beginning</a>
+      </main>
     </div>
   );
 }
