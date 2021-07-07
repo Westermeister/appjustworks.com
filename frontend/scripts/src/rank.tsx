@@ -374,7 +374,8 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
         <div id="copyHelp" className="form-text mb-4">
           So others can rank these exact items and get their own result!
         </div>
-        <a href="/apps/rank">Back to beginning</a>
+        {/* Reload to ensure shared lists will properly go back to the share page. */}
+        <a href="javascript:window.location.reload(true)">Back to beginning</a>
       </main>
     </div>
   );
