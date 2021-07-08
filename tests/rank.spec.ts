@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 
 test("Add items", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/rank");
+  await page.goto("http://localhost:8080/apps/rank-a-list-of-items");
 
   // Ensure we're on the right page.
   const title = await page.innerText("title");
-  expect(title).toEqual("Rank a list of items - App Just Works");
+  expect(title).toEqual("Rank a list of items | App Just Works");
 
   // Try adding: Godzilla...
   await page.fill("#app input", "Godzilla");
@@ -45,7 +45,7 @@ test("Add items", async ({ page }) => {
 });
 
 test("Do ranking", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/rank");
+  await page.goto("http://localhost:8080/apps/rank-a-list-of-items");
 
   // Add some items.
   await page.fill("#app input", "2");
@@ -73,7 +73,7 @@ test("Do ranking", async ({ page }) => {
 });
 
 test("Back to beginning", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/rank");
+  await page.goto("http://localhost:8080/apps/rank-a-list-of-items");
 
   // Add some items, and go through ranking process.
   await page.fill("#app input", "1");
@@ -92,7 +92,7 @@ test("Back to beginning", async ({ page }) => {
 test("Shared list initial page", async ({ page }) => {
   // Go to a shared link.
   await page.goto(
-    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+    "http://localhost:8080/apps/rank-a-list-of-items?items=NoIgjCA0IExSBmeAWEBdIA"
   );
 
   // We should have the items: 1, 2, 3, 4
@@ -111,19 +111,19 @@ test("Shared list initial page", async ({ page }) => {
 test("From shared list to make-your-own", async ({ page }) => {
   // Go to a shared link.
   await page.goto(
-    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+    "http://localhost:8080/apps/rank-a-list-of-items?items=NoIgjCA0IExSBmeAWEBdIA"
   );
 
   // Click the "make your own" link.
   await page.click("'make your own'");
   const url = page.url();
-  expect(url).toEqual("http://localhost:8080/apps/rank");
+  expect(url).toEqual("http://localhost:8080/apps/rank-a-list-of-items");
 });
 
 test("Use shared list and begin ranking", async ({ page }) => {
   // Go to a shared link, and start ranking.
   await page.goto(
-    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+    "http://localhost:8080/apps/rank-a-list-of-items?items=NoIgjCA0IExSBmeAWEBdIA"
   );
   await page.click("'Begin ranking'");
   await page.click("'3'");
@@ -142,7 +142,7 @@ test("Use shared list and begin ranking", async ({ page }) => {
 test("From shared list to custom one", async ({ page }) => {
   // Go to a shared link and click
   await page.goto(
-    "http://localhost:8080/apps/rank?items=NoIgjCA0IExSBmeAWEBdIA"
+    "http://localhost:8080/apps/rank-a-list-of-items?items=NoIgjCA0IExSBmeAWEBdIA"
   );
 
   // Now modify the list. Remove the first 2 items: 1 and 2.
