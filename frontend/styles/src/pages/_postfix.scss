@@ -1,0 +1,12 @@
+#display {
+  @extend .col-12,
+    .border,
+    .border-2,
+    .border-dark,
+    .rounded,
+    .py-1,
+    .pe-3,
+    .mb-1,
+    .text-end,
+    .fs-3;
+}

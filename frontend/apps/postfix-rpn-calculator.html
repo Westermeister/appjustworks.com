@@ -16,7 +16,7 @@
     />
   </head>
   <body class="mb-5">
-    <nav class="navbar navbar-light mb-5">
+    <nav class="navbar navbar-light mb-1">
       <div class="container-fluid">
         <a class="navbar-brand h1 mb-0" href="#">
           <img
@@ -31,77 +31,81 @@
       </div>
     </nav>
     <div class="container">
-      <header class="mb-5">
+      <header class="mb-2">
         <h1>Postfix (RPN) Calculator</h1>
-        <p class="fst-italic">
-          Tired of nested parentheses? Try out the alternative mode of
-          calculation: reverse polish notation!
-        </p>
       </header>
-      <main class="row g-2">
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border">swap</div>
+      <main>
+        <div id="display">
+          <div id="display-4">0</div>
+          <div id="display-3">0</div>
+          <div id="display-2">0</div>
+          <div id="display-1">0</div>
         </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border">roll</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border">mod</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border">CE</div>
-        </div>
+        <div class="row g-1">
+          <div class="col-3">
+            <div class="col-12 btn btn-dark">swap</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark">roll</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark">mod</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark">AC</div>
+          </div>
 
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">7</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">8</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">9</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border fw-bold">&#xF7;</div>
-        </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">7</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">8</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">9</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark fw-bold">&#xF7;</div>
+          </div>
 
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">4</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">5</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">6</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border fw-bold">&#xD7;</div>
-        </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">4</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">5</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">6</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark fw-bold">&#xD7;</div>
+          </div>
 
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">1</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">2</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">3</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border fw-bold">&#x2212;</div>
-        </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">1</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">2</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">3</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark fw-bold">&#x2212;</div>
+          </div>
 
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border">0</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-secondary border fw-bold">.</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-primary">enter</div>
-        </div>
-        <div class="col-3">
-          <div class="col-12 btn btn-dark border fw-bold">&#x2B;</div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary">0</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-secondary fw-bold">.</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-primary">enter</div>
+          </div>
+          <div class="col-3">
+            <div class="col-12 btn btn-dark fw-bold">&#x2B;</div>
+          </div>
         </div>
       </main>
     </div>
