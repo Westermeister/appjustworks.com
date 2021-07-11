@@ -97,8 +97,7 @@ function InputPhase(props: {
                 modify it
               </a>{" "}
               before you begin, or{" "}
-              <a href="/apps/rank-a-list-of-items">make your own</a> from
-              scratch.
+              <a href="/apps/rank-a-list-of-items">start from scratch.</a>
             </p>
             <button
               type="button"
