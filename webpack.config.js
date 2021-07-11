@@ -39,4 +39,11 @@ module.exports = {
     path: path.resolve(__dirname, ...SCRIPTS_DIST),
     filename: "[name].js",
   },
+  externals: {
+    "js-base64": "Base64",
+    clipboard: "ClipboardJS",
+    "lz-string": "LZString",
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
 };
