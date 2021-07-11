@@ -1,9 +1,7 @@
-/**
- * Implements ranking app.
+/** @preserve
+ * Script for: Rank a list of items | App Just Works (https://appjustworks/apps/rank-a-list-of-items)
+ * Copyright (C) 2021 Westermeister. All rights reserved.
  */
-
-// Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
-"use strict";
 
 import { Base64 } from "js-base64";
 import ClipboardJS from "clipboard";
