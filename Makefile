@@ -1,14 +1,12 @@
 # Command variables.
 ESLINT=npx eslint
 GZIP=gzip
-OBFUSCATOR=npx javascript-obfuscator
 PLAYWRIGHT=npx playwright
 POSTCSS=NODE_ENV=production npx postcss
 PRETTIER=npx prettier
 PURGECSS=npx purgecss
 SASS=npx sass
-TSC=npx tsc
-UGLIFY=npx uglifyjs
+WEBPACK=npx webpack
 
 # Important paths.
 WEBROOT=./frontend
@@ -17,14 +15,12 @@ STYLES_DIR=$(WEBROOT)/styles
 
 # Store flags into these variables.
 GZIP_FLAGS=-9 --keep --force
-OBFUSCATOR_FLAGS=--options-preset medium-obfuscation
 PLAYWRIGHT_FLAGS=--browser=all
 POSTCSS_FLAGS=--replace
 PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}" "./tests/**/*.spec.ts"
 PURGECSS_FLAGS=--css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,tsx}" --output $(STYLES_DIR)/dist/
 SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
-TSC_FLAGS=--strict --target es2017 --module es2015 --jsx react --moduleResolution node --outDir $(SCRIPTS_DIR)/dist
-UGLIFY_FLAGS=--compress --mangle --comments "/^!/"
+WEBPACK_FLAGS=--config ./webpack.config.js
 
 # BEGIN: Standard targets.
 
@@ -52,11 +48,7 @@ prettier:
 
 .PHONY: scripts
 scripts: eslint prettier
-	rm -rf $(SCRIPTS_DIR)/dist
-	$(TSC) $(SCRIPTS_DIR)/src/*.tsx $(TSC_FLAGS)
-	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(UGLIFY) $(file) $(UGLIFY_FLAGS) -o $(file);)
-	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(OBFUSCATOR) $(file) --output $(file) $(OBFUSCATOR_FLAGS))
-	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(GZIP) $(GZIP_FLAGS) $(file);)
+	$(WEBPACK) $(WEBPACK_FLAGS)
 
 .PHONY: styles
 styles: prettier

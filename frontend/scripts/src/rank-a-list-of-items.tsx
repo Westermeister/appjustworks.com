@@ -1,21 +1,15 @@
-/*!
- * @preserve
- * Copyright (C) 2021-Present Westermeister. All Rights Reserved.
+/**
+ * Implements ranking app.
  */
 
 // Explicitly state this here. Otherwise, TS will emit it above the copyright notice.
 "use strict";
 
-declare const Base64: {
-  encode: (src: string, urlsafe?: boolean) => string;
-};
-
-declare const ClipboardJS: any;
-
-declare const LZString: {
-  compressToEncodedURIComponent: (input: string) => string;
-  decompressFromEncodedURIComponent: (compressed: string) => string;
-};
+import { Base64 } from "js-base64";
+import ClipboardJS from "clipboard";
+import LZString from "lz-string";
+import React from "react";
+import ReactDOM from "react-dom";
 
 /**
  * Handles app functionality during input phase.
@@ -392,7 +386,7 @@ function App(): JSX.Element {
   let premade = false;
   if (items_param !== null) {
     items_init = JSON.parse(
-      LZString.decompressFromEncodedURIComponent(items_param)
+      LZString.decompressFromEncodedURIComponent(items_param) as string
     );
     premade = true;
   }
