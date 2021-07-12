@@ -8,7 +8,7 @@ const SCRIPTS_DIST = ["frontend", "scripts", "dist"];
 
 module.exports = {
   mode: "production",
-  plugins: [new CompressionPlugin()],
+  plugins: [new CompressionPlugin({ minRatio: 1 })],
   entry: {
     "rank-a-list-of-items": `${SCRIPTS_SRC}/rank-a-list-of-items.tsx`,
     "postfix-rpn-calculator": `${SCRIPTS_SRC}/postfix-rpn-calculator.ts`,
