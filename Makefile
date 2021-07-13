@@ -60,4 +60,4 @@ styles: prettier
 	$(SASS) $(STYLES_DIR)/src:$(STYLES_DIR)/dist $(SASS_FLAGS)
 	$(PURGECSS) $(PURGECSS_FLAGS)
 	$(POSTCSS) $(STYLES_DIR)/dist/main.css $(POSTCSS_FLAGS)
-	$(GZIP) $(GZIP_FLAGS) $(STYLES_DIR)/dist/main.css
+	$(GZIP) $(GZIP_FLAGS) $(STYLES_DIR)/dist
