@@ -15,7 +15,7 @@ SCRIPTS_DIR=$(WEBROOT)/scripts
 STYLES_DIR=$(WEBROOT)/styles
 
 # Store flags into these variables.
-GZIP_FLAGS=-9 --keep --force
+GZIP_FLAGS=-9 --keep --force --recursive
 PLAYWRIGHT_FLAGS=--browser=all
 POSTCSS_FLAGS=--replace
 PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}" "./tests/**/*.spec.ts"
@@ -49,9 +49,10 @@ prettier:
 
 .PHONY: scripts
 scripts: eslint prettier
+	rm -rf $(SCRIPTS_DIR)/dist
 	$(WEBPACK) $(WEBPACK_FLAGS)
 	$(PYTHON) ./copywriter.py
-	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(GZIP) $(GZIP_FLAGS) $(file);)
+	$(GZIP) $(GZIP_FLAGS) $(SCRIPTS_DIR)/dist
 
 .PHONY: styles
 styles: prettier
