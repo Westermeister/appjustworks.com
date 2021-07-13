@@ -1,6 +1,6 @@
 const path = require("path");
 
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const WebpackObfuscator = require("webpack-obfuscator");
 
 const SCRIPTS_SRC = "./frontend/scripts/src";

@@ -18,7 +18,7 @@ STYLES_DIR=$(WEBROOT)/styles
 GZIP_FLAGS=-9 --keep --force --recursive
 PLAYWRIGHT_FLAGS=--browser=all
 POSTCSS_FLAGS=--replace
-PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx}" "./tests/**/*.spec.ts"
+PRETTIER_FLAGS=--write "./frontend/**/*.{html,scss,tsx,ts}" "./tests/**/*.spec.ts" "./*.{js,json}"
 PURGECSS_FLAGS=--css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,tsx}" --output $(STYLES_DIR)/dist/
 SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
 WEBPACK_FLAGS=--config ./webpack.config.js
