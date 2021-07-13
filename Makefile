@@ -5,6 +5,7 @@ PLAYWRIGHT=npx playwright
 POSTCSS=NODE_ENV=production npx postcss
 PRETTIER=npx prettier
 PURGECSS=npx purgecss
+PYTHON=python3
 SASS=npx sass
 WEBPACK=npx webpack
 
@@ -49,6 +50,8 @@ prettier:
 .PHONY: scripts
 scripts: eslint prettier
 	$(WEBPACK) $(WEBPACK_FLAGS)
+	$(PYTHON) ./copywriter.py
+	$(foreach file, $(wildcard $(SCRIPTS_DIR)/dist/*.js), $(GZIP) $(GZIP_FLAGS) $(file);)
 
 .PHONY: styles
 styles: prettier

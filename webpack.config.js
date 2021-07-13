@@ -1,6 +1,6 @@
 const path = require("path");
 
-const CompressionPlugin = require("compression-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const WebpackObfuscator = require("webpack-obfuscator");
 
 const SCRIPTS_SRC = "./frontend/scripts/src";
@@ -8,7 +8,10 @@ const SCRIPTS_DIST = ["frontend", "scripts", "dist"];
 
 module.exports = {
   mode: "production",
-  plugins: [new CompressionPlugin({ minRatio: 1 })],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin({ extractComments: false })],
+  },
   entry: {
     "rank-a-list-of-items": `${SCRIPTS_SRC}/rank-a-list-of-items.tsx`,
     "postfix-rpn-calculator": `${SCRIPTS_SRC}/postfix-rpn-calculator.ts`,

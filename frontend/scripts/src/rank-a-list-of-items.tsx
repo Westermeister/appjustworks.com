@@ -1,4 +1,4 @@
-/** @preserve
+/**
  * Script for: Rank a list of items | App Just Works (https://appjustworks/apps/rank-a-list-of-items)
  * Copyright (C) 2021 Westermeister. All rights reserved.
  */
