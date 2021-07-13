@@ -108,14 +108,14 @@ test("Shared list initial page", async ({ page }) => {
   expect(text).toEqual("Begin ranking");
 });
 
-test("From shared list to make-your-own", async ({ page }) => {
+test("From shared list to start-from-scratch", async ({ page }) => {
   // Go to a shared link.
   await page.goto(
     "http://localhost:8080/apps/rank-a-list-of-items?items=NoIgjCA0IExSBmeAWEBdIA"
   );
 
-  // Click the "make your own" link.
-  await page.click("'make your own'");
+  // Click the "start from scratch" link.
+  await page.click("'start from scratch.'");
   const url = page.url();
   expect(url).toEqual("http://localhost:8080/apps/rank-a-list-of-items");
 });
