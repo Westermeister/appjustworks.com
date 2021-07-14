@@ -64,7 +64,7 @@ function InputPhase(props: {
           <li className="list-group-item">
             <span
               className="pointer-hover text-danger me-4"
-              onClick={() => removeItem(item)}
+              onClick={(): void => removeItem(item)}
             >
               X
             </span>
@@ -92,7 +92,7 @@ function InputPhase(props: {
               This is a premade list. If you want, you can{" "}
               <a
                 href="javascript:void(0);"
-                onClick={() => setModifyClicked(true)}
+                onClick={(): void => setModifyClicked(true)}
               >
                 modify it
               </a>{" "}
@@ -102,7 +102,7 @@ function InputPhase(props: {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => props.onPhaseChange("rank")}
+              onClick={(): void => props.onPhaseChange("rank")}
             >
               Begin ranking
             </button>
@@ -122,7 +122,7 @@ function InputPhase(props: {
                   className="form-control"
                   type="text"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={(e): void => setInput(e.target.value)}
                   placeholder="Enter an item"
                   aria-describedby="inputHelp"
                 />
@@ -147,7 +147,7 @@ function InputPhase(props: {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => props.onPhaseChange("rank")}
+            onClick={(): void => props.onPhaseChange("rank")}
           >
             Next
           </button>
@@ -274,13 +274,13 @@ function RankPhase(props: {
           {/* Use divs instead of buttons to prevent outlined borders on click. */}
           <div
             className="btn btn-primary choice"
-            onClick={() => mergeSortStep(leftOption)}
+            onClick={(): void => mergeSortStep(leftOption)}
           >
             {leftOption}
           </div>
           <div
             className="btn btn-primary choice"
-            onClick={() => mergeSortStep(rightOption)}
+            onClick={(): void => mergeSortStep(rightOption)}
           >
             {rightOption}
           </div>
@@ -357,7 +357,7 @@ function ResultsPhase(props: { items: string[] }): JSX.Element {
             className="btn btn-primary btn-copy"
             data-clipboard-text={quizLink}
             aria-describedby="copyHelp"
-            onClick={() => setCopied(true)}
+            onClick={(): void => setCopied(true)}
           >
             Share quiz
           </button>
