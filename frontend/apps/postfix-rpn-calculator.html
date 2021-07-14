@@ -45,10 +45,19 @@
       </header>
       <main>
         <div id="display">
-          <div id="display-4">0</div>
-          <div id="display-3">0</div>
-          <div id="display-2">0</div>
-          <div id="display-1">0</div>
+          <div v-if="hasIndex(stack.length - 3)">
+            {{ stack[stack.length - 3] }}
+          </div>
+          <div v-else>&nbsp;</div>
+          <div v-if="hasIndex(stack.length - 2)">
+            {{ stack[stack.length - 2] }}
+          </div>
+          <div v-else>&nbsp;</div>
+          <div v-if="hasIndex(stack.length - 1)">
+            {{ stack[stack.length - 1] }}
+          </div>
+          <div v-else>&nbsp;</div>
+          <div>{{ inputField }}</div>
         </div>
         <div class="row g-1">
           <div class="col-3">
@@ -65,52 +74,77 @@
           </div>
 
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">7</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('7')">
+              7
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">8</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('8')">
+              8
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">9</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('9')">
+              9
+            </div>
           </div>
           <div class="col-3">
             <div class="col-12 btn btn-dark fw-bold">&#xF7;</div>
           </div>
 
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">4</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('4')">
+              4
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">5</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('5')">
+              5
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">6</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('6')">
+              6
+            </div>
           </div>
           <div class="col-3">
             <div class="col-12 btn btn-dark fw-bold">&#xD7;</div>
           </div>
 
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">1</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('1')">
+              1
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">2</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('2')">
+              2
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">3</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('3')">
+              3
+            </div>
           </div>
           <div class="col-3">
             <div class="col-12 btn btn-dark fw-bold">&#x2212;</div>
           </div>
 
           <div class="col-3">
-            <div class="col-12 btn btn-secondary">0</div>
+            <div class="col-12 btn btn-secondary" v-on:click="addDigit('0')">
+              0
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-secondary fw-bold">.</div>
+            <div
+              class="col-12 btn btn-secondary fw-bold"
+              v-on:click="addDigit('.')"
+            >
+              .
+            </div>
           </div>
           <div class="col-3">
-            <div class="col-12 btn btn-primary">enter</div>
+            <div class="col-12 btn btn-primary" v-on:click="enter">enter</div>
           </div>
           <div class="col-3">
             <div class="col-12 btn btn-dark fw-bold">&#x2B;</div>
@@ -123,7 +157,7 @@
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/vue@3.1.4/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.1.4/dist/vue.global.prod.js"></script>
     <script src="/scripts/dist/postfix-rpn-calculator.js"></script>
   </body>
 </html>
