@@ -421,4 +421,5 @@ function App(): JSX.Element {
 }
 
 const container = document.querySelector("#app");
-ReactDOM.render(<App />, container);
+// Use "any" to fix obscure compilation bug when compiling alongside peer source files.
+ReactDOM.render((<App />) as any, container);
