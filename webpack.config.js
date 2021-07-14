@@ -43,5 +43,6 @@ module.exports = {
     "lz-string": "LZString",
     react: "React",
     "react-dom": "ReactDOM",
+    vue: "Vue",
   },
 };
