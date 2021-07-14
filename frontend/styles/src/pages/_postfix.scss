@@ -5,8 +5,14 @@
     .border-dark,
     .rounded,
     .py-1,
-    .pe-3,
+    .px-3,
     .mb-1,
     .text-end,
     .fs-3;
+}
+
+#display > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
