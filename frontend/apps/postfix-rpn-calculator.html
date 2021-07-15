@@ -24,8 +24,8 @@
       href="https://appjustworks.com/apps/postfix-rpn-calculator"
     />
   </head>
-  <body class="mb-5">
-    <nav class="navbar navbar-light mb-1">
+  <body>
+    <nav class="navbar navbar-light mb-0">
       <div class="container-fluid">
         <a class="navbar-brand h1 mb-0" href="#">
           <img
@@ -40,10 +40,8 @@
       </div>
     </nav>
     <div class="container">
-      <header class="mb-2">
-        <h1>Postfix (RPN) Calculator</h1>
-      </header>
-      <main>
+      <h1 class="mb-1">Postfix (RPN) Calculator</h1>
+      <main id="app">
         <div id="display">
           <div v-if="hasIndex(stack.length - 3)">
             {{ stack[stack.length - 3] }}
@@ -57,97 +55,304 @@
             {{ stack[stack.length - 1] }}
           </div>
           <div v-else>&nbsp;</div>
-          <div>{{ inputField }}</div>
+          <div id="input-field">{{ inputField }}</div>
         </div>
         <div class="row g-1">
-          <div class="col-3">
-            <div class="col-12 btn btn-dark">swap</div>
+          <!-- Radian/degree toggle, percent and percent diff ops, inverse op, and rounding function -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">rad</button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark">roll</div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">deg</button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark">mod</div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">%</button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark">AC</div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">&#x25B3;%</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">1/x</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">round</button>
           </div>
 
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('7')">
+          <!-- Trig functions -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">sin</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">cos</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">tan</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">asin</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">acos</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">atan</button>
+          </div>
+
+          <!-- Exponents and square roots -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <sub>10</sub><small>x</small>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <sub>e</sub><small>x</small>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <sub>2</sub><small>x</small>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <sub>y</sub>x
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">&#x221A;x</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <small>x</small><sub>&#x221A;y</sub>
+            </button>
+          </div>
+
+          <!-- More exponents, logarithms, and pi -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              log<sub>10</sub>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">ln</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              log<sub>2</sub>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              log<sub>y</sub>x
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">
+              <sub>X</sub><small>2</small>
+            </button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">&#x3C0;</button>
+          </div>
+
+          <!-- Operations incl. factorial, positive/negative, swap, roll, modulus, and e constant -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">x!</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">+/-</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">swap</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">roll</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">mod</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">e</button>
+          </div>
+
+          <!-- Top numerical row: includes AC, memory add, numbers, and division -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">AC</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">m+</button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('7')"
+            >
               7
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('8')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('8')"
+            >
               8
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('9')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('9')"
+            >
               9
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark fw-bold">&#xF7;</div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-highlight fw-bold"
+              v-on:click="binaryOperation('div')"
+            >
+              &#xF7;
+            </button>
           </div>
 
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('4')">
+          <!-- Includes memory clear, memory subtract, numbers, and multiplication -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">MC</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">m-</button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('4')"
+            >
               4
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('5')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('5')"
+            >
               5
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('6')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('6')"
+            >
               6
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark fw-bold">&#xD7;</div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-highlight fw-bold"
+              v-on:click="binaryOperation('mul')"
+            >
+              &#xD7;
+            </button>
           </div>
 
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('1')">
+          <!-- Second to last row: includes CE, memory input, numbers, and subtraction -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">CE</button>
+          </div>
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">m in</button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('1')"
+            >
               1
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('2')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('2')"
+            >
               2
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('3')">
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('3')"
+            >
               3
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark fw-bold">&#x2212;</div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-highlight fw-bold"
+              v-on:click="binaryOperation('sub')"
+            >
+              &#x2212;
+            </button>
           </div>
 
-          <div class="col-3">
-            <div class="col-12 btn btn-secondary" v-on:click="addDigit('0')">
-              0
-            </div>
+          <!-- Final row: includes drop, memory reset, 0, decimal point, enter, and addition -->
+
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">drop</button>
           </div>
-          <div class="col-3">
-            <div
-              class="col-12 btn btn-secondary fw-bold"
+          <div class="col-2">
+            <button type="button" class="calc-btn-generic">m re</button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num"
+              v-on:click="addDigit('0')"
+            >
+              0
+            </button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-num fw-bold"
               v-on:click="addDigit('.')"
             >
               .
-            </div>
+            </button>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-primary" v-on:click="enter">enter</div>
+          <div class="col-2">
+            <div class="calc-btn-highlight" v-on:click="enter">enter</div>
           </div>
-          <div class="col-3">
-            <div class="col-12 btn btn-dark fw-bold">&#x2B;</div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="calc-btn-highlight fw-bold"
+              v-on:click="binaryOperation('add')"
+            >
+              &#x2B;
+            </button>
           </div>
         </div>
       </main>

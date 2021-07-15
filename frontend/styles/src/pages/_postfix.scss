@@ -8,11 +8,27 @@
     .px-3,
     .mb-1,
     .text-end,
-    .fs-3;
+    .fs-5;
 }
 
 #display > div {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.calc-btn {
+  @extend .px-0, .py-1;
+}
+
+.calc-btn-num {
+  @extend .calc-btn, .col-12, .btn, .btn-secondary;
+}
+
+.calc-btn-generic {
+  @extend .calc-btn, .col-12, .btn, .btn-dark;
+}
+
+.calc-btn-highlight {
+  @extend .calc-btn, .col-12, .btn, .btn-primary;
 }

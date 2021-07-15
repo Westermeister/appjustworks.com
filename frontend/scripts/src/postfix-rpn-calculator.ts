@@ -14,6 +14,9 @@ const App = defineComponent({
     // Enables completely overwriting the entry row.
     // Activates after pressing enter, then immediately deactivates.
     const readyForOverwrite = ref(false);
+    // Cap result at this number of sig figs.
+    // As a bonus, circumvents rounding errors from floating point math.
+    const sigFigs = 15;
 
     /**
      * Adds a digit to the input field.
@@ -34,7 +37,9 @@ const App = defineComponent({
 
     /** Enters a number onto the stack. */
     const enter = (): void => {
-      stack.value.push(inputField.value);
+      // Cap maximum precision (but allow less precision).
+      const toAdd = Number(Number(inputField.value).toPrecision(sigFigs));
+      stack.value.push(String(toAdd));
       readyForOverwrite.value = true;
     };
 
@@ -54,6 +59,39 @@ const App = defineComponent({
       return true;
     };
 
+    /**
+     * Performs binary operations.
+     * @param opcode - Which op to perform. Must be one of: add, sub, mul, div
+     */
+    const binaryOperation = (opcode: string): void => {
+      // If we don't have a second operand, do nothing.
+      if (stack.value.length === 0) {
+        return;
+      }
+      const operands = [Number(inputField.value), Number(stack.value.pop())];
+      let result: number;
+      switch (opcode) {
+        case "add":
+          result = operands[1] + operands[0];
+          break;
+        case "sub":
+          result = operands[1] - operands[0];
+          break;
+        case "mul":
+          result = operands[1] * operands[0];
+          break;
+        case "div":
+          result = operands[1] / operands[0];
+          break;
+        default:
+          result = NaN;
+          break;
+      }
+      // Cap maximum precision, while also circumventing rounding errors from floating point math.
+      const newValue = String(Number(result.toPrecision(sigFigs)));
+      inputField.value = newValue;
+    };
+
     return {
       stack,
       inputField,
@@ -61,8 +99,9 @@ const App = defineComponent({
       addDigit,
       enter,
       hasIndex,
+      binaryOperation,
     };
   },
 });
 
-createApp(App).mount("main");
+createApp(App).mount("#app");
