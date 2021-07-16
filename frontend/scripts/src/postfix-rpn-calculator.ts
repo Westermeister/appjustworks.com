@@ -158,6 +158,19 @@ const App = defineComponent({
       memoryClear,
     } = memory(inputField);
 
+    /** Removes the last digit added to the input field. */
+    const clearLastEntry = (): void => {
+      if (inputField.value === "0") return;
+      if (inputField.value.length === 1) {
+        inputField.value = "0";
+      } else {
+        inputField.value = inputField.value.slice(
+          0,
+          inputField.value.length - 1
+        );
+      }
+    };
+
     /** Clears the stack, the input field, and memory i.e. clears everything. */
     const allClear = (): void => {
       stack.value = [];
@@ -177,6 +190,7 @@ const App = defineComponent({
       memoryAdd,
       memorySubtract,
       memoryClear,
+      clearLastEntry,
       allClear,
     };
   },

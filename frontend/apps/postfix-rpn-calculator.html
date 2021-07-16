@@ -298,7 +298,13 @@
           <!-- Second to last row: includes CE, memory input, numbers, and subtraction -->
 
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">CE</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="clearLastEntry"
+            >
+              CE
+            </button>
           </div>
           <div class="col-2">
             <button
