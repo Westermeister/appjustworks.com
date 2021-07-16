@@ -15,40 +15,46 @@ function capSigFigs(value: number): number {
 }
 
 /**
- * Responsible for memory buttons for memory input, return, addition, and subtraction.
+ * Responsible for all memory buttons i.e. input, add, subtract, recall, and clearing.
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
- * @returns Memory reference and utilities for accessing and manipulating it.
+ * @returns Memory utilities for accessing and manipulating memory.
  */
 function memory(inputField: Ref<string>): {
   memoryInput: () => void;
   memoryRecall: () => void;
   memoryAdd: () => void;
   memorySubtract: () => void;
+  memoryClear: () => void;
 } {
   const memoryValue = ref(0);
 
-  /** Inputs a value into memory. */
+  /** Stores input into memory. */
   const memoryInput = (): void => {
     memoryValue.value = Number(inputField.value);
   };
 
-  /** Returns the value from memory, into the input field. */
+  /** Returns the value from memory, overwriting the input field. */
   const memoryRecall = (): void => {
     inputField.value = String(memoryValue.value);
   };
 
-  /** Add a value to memory. */
+  /** Add input to memory. */
   const memoryAdd = (): void => {
     memoryValue.value = capSigFigs(
       memoryValue.value + Number(inputField.value)
     );
   };
 
-  /** Subtract a value from memory. */
+  /** Subtract input from memory. */
   const memorySubtract = (): void => {
     memoryValue.value = capSigFigs(
       memoryValue.value - Number(inputField.value)
     );
+  };
+
+  /** Clear the value from memory. */
+  const memoryClear = (): void => {
+    memoryValue.value = 0;
   };
 
   return {
@@ -56,6 +62,7 @@ function memory(inputField: Ref<string>): {
     memoryRecall,
     memoryAdd,
     memorySubtract,
+    memoryClear,
   };
 }
 
@@ -143,8 +150,13 @@ const App = defineComponent({
       inputField.value = newValue;
     };
 
-    const { memoryInput, memoryRecall, memoryAdd, memorySubtract } =
-      memory(inputField);
+    const {
+      memoryInput,
+      memoryRecall,
+      memoryAdd,
+      memorySubtract,
+      memoryClear,
+    } = memory(inputField);
 
     return {
       stack,
@@ -158,6 +170,7 @@ const App = defineComponent({
       memoryRecall,
       memoryAdd,
       memorySubtract,
+      memoryClear,
     };
   },
 });

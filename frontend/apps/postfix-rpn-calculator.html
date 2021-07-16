@@ -235,7 +235,13 @@
           <!-- Includes memory clear, memory subtract, numbers, and multiplication -->
 
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">MC</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="memoryClear"
+            >
+              MC
+            </button>
           </div>
           <div class="col-2">
             <button
