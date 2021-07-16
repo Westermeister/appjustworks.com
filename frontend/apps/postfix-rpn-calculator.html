@@ -187,7 +187,13 @@
             <button type="button" class="calc-btn-generic">AC</button>
           </div>
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">m+</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="memoryAdd"
+            >
+              m+
+            </button>
           </div>
           <div class="col-2">
             <button
@@ -232,7 +238,13 @@
             <button type="button" class="calc-btn-generic">MC</button>
           </div>
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">m-</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="memorySubtract"
+            >
+              m-
+            </button>
           </div>
           <div class="col-2">
             <button
@@ -277,7 +289,13 @@
             <button type="button" class="calc-btn-generic">CE</button>
           </div>
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">m in</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="memoryInput"
+            >
+              m in
+            </button>
           </div>
           <div class="col-2">
             <button
@@ -316,13 +334,19 @@
             </button>
           </div>
 
-          <!-- Final row: includes drop, memory reset, 0, decimal point, enter, and addition -->
+          <!-- Final row: includes drop, memory recall, 0, decimal point, enter, and addition -->
 
           <div class="col-2">
             <button type="button" class="calc-btn-generic">drop</button>
           </div>
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">m re</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="memoryRecall"
+            >
+              m re
+            </button>
           </div>
           <div class="col-2">
             <button

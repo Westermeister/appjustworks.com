@@ -3,7 +3,61 @@
  * Copyright (C) 2021 Westermeister. All rights reserved.
  */
 
-import { createApp, defineComponent, ref } from "vue";
+import { createApp, defineComponent, ref, Ref } from "vue";
+
+/**
+ * Caps the maximum number of significant figures in a number.
+ * @param value - The value to cap.
+ * @returns The value but capped at 15 significant figures or fewer.
+ */
+function capSigFigs(value: number): number {
+  return Number(value.toPrecision(15));
+}
+
+/**
+ * Responsible for memory buttons for memory input, return, addition, and subtraction.
+ * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
+ * @returns Memory reference and utilities for accessing and manipulating it.
+ */
+function memory(inputField: Ref<string>): {
+  memoryInput: () => void;
+  memoryRecall: () => void;
+  memoryAdd: () => void;
+  memorySubtract: () => void;
+} {
+  const memoryValue = ref(0);
+
+  /** Inputs a value into memory. */
+  const memoryInput = (): void => {
+    memoryValue.value = Number(inputField.value);
+  };
+
+  /** Returns the value from memory, into the input field. */
+  const memoryRecall = (): void => {
+    inputField.value = String(memoryValue.value);
+  };
+
+  /** Add a value to memory. */
+  const memoryAdd = (): void => {
+    memoryValue.value = capSigFigs(
+      memoryValue.value + Number(inputField.value)
+    );
+  };
+
+  /** Subtract a value from memory. */
+  const memorySubtract = (): void => {
+    memoryValue.value = capSigFigs(
+      memoryValue.value - Number(inputField.value)
+    );
+  };
+
+  return {
+    memoryInput,
+    memoryRecall,
+    memoryAdd,
+    memorySubtract,
+  };
+}
 
 const App = defineComponent({
   setup() {
@@ -14,9 +68,6 @@ const App = defineComponent({
     // Enables completely overwriting the entry row.
     // Activates after pressing enter, then immediately deactivates.
     const readyForOverwrite = ref(false);
-    // Cap result at this number of sig figs.
-    // As a bonus, circumvents rounding errors from floating point math.
-    const sigFigs = 15;
 
     /**
      * Adds a digit to the input field.
@@ -38,7 +89,7 @@ const App = defineComponent({
     /** Enters a number onto the stack. */
     const enter = (): void => {
       // Cap maximum precision (but allow less precision).
-      const toAdd = Number(Number(inputField.value).toPrecision(sigFigs));
+      const toAdd = capSigFigs(Number(inputField.value));
       stack.value.push(String(toAdd));
       readyForOverwrite.value = true;
     };
@@ -88,9 +139,12 @@ const App = defineComponent({
           break;
       }
       // Cap maximum precision, while also circumventing rounding errors from floating point math.
-      const newValue = String(Number(result.toPrecision(sigFigs)));
+      const newValue = String(capSigFigs(result));
       inputField.value = newValue;
     };
+
+    const { memoryInput, memoryRecall, memoryAdd, memorySubtract } =
+      memory(inputField);
 
     return {
       stack,
@@ -100,6 +154,10 @@ const App = defineComponent({
       enter,
       hasIndex,
       binaryOperation,
+      memoryInput,
+      memoryRecall,
+      memoryAdd,
+      memorySubtract,
     };
   },
 });
