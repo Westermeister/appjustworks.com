@@ -161,7 +161,6 @@ const App = defineComponent({
     return {
       stack,
       inputField,
-      readyForOverwrite,
       addDigit,
       enter,
       hasIndex,
