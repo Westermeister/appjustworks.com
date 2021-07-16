@@ -160,6 +160,13 @@ const App = defineComponent({
       memoryClear,
     } = memory(inputField);
 
+    /** Clears the stack, the input field, and memory i.e. clears everything. */
+    const allClear = (): void => {
+      stack.value = [];
+      inputField.value = "0";
+      memoryClear();
+    };
+
     /** Removes the last digit added to the input field. */
     const clearLastEntry = (): void => {
       if (inputField.value === "0") return;
@@ -173,11 +180,13 @@ const App = defineComponent({
       }
     };
 
-    /** Clears the stack, the input field, and memory i.e. clears everything. */
-    const allClear = (): void => {
-      stack.value = [];
-      inputField.value = "0";
-      memoryClear();
+    /** Drops the input field, pops the stack, and uses that value as the replacement. */
+    const drop = (): void => {
+      if (stack.value.length === 0) {
+        inputField.value = "0";
+      } else {
+        inputField.value = String(stack.value.pop());
+      }
     };
 
     return {
@@ -192,8 +201,9 @@ const App = defineComponent({
       memoryAdd,
       memorySubtract,
       memoryClear,
-      clearLastEntry,
       allClear,
+      clearLastEntry,
+      drop,
     };
   },
 });
