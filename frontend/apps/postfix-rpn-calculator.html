@@ -184,7 +184,13 @@
           <!-- Top numerical row: includes AC, memory add, numbers, and division -->
 
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">AC</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="allClear"
+            >
+              AC
+            </button>
           </div>
           <div class="col-2">
             <button

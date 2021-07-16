@@ -158,6 +158,13 @@ const App = defineComponent({
       memoryClear,
     } = memory(inputField);
 
+    /** Clears the stack, the input field, and memory i.e. clears everything. */
+    const allClear = (): void => {
+      stack.value = [];
+      inputField.value = "0";
+      memoryClear();
+    };
+
     return {
       stack,
       inputField,
@@ -170,6 +177,7 @@ const App = defineComponent({
       memoryAdd,
       memorySubtract,
       memoryClear,
+      allClear,
     };
   },
 });
