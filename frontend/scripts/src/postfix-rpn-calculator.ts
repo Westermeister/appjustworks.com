@@ -81,7 +81,9 @@ const App = defineComponent({
      * @param digit - The digit to add. Can be a decimal point as well.
      */
     const addDigit = (digit: string): void => {
-      if (inputField.value === "0") {
+      if (inputField.value === "0" && digit === ".") {
+        inputField.value += digit;
+      } else if (inputField.value === "0") {
         inputField.value = digit;
       } else if (readyForOverwrite.value) {
         inputField.value = digit;
