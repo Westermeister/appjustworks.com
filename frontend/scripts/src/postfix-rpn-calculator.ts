@@ -165,13 +165,13 @@ const App = defineComponent({
         case "add":
           result = operands[1] + operands[0];
           break;
-        case "sub":
+        case "subtract":
           result = operands[1] - operands[0];
           break;
-        case "mul":
+        case "multiply":
           result = operands[1] * operands[0];
           break;
-        case "div":
+        case "divide":
           result = operands[1] / operands[0];
           break;
         default:
