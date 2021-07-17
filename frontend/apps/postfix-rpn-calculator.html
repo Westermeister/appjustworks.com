@@ -164,7 +164,13 @@
           <!-- Operations incl. factorial, positive/negative, swap, roll, modulus, and e constant -->
 
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">x!</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="unaryOperation('factorial')"
+            >
+              x!
+            </button>
           </div>
           <div class="col-2">
             <button type="button" class="calc-btn-generic">+/-</button>

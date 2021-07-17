@@ -120,6 +120,37 @@ const App = defineComponent({
     };
 
     /**
+     * Performs unary operations.
+     * @param opcode - Which op to perform. Must be one of: fact
+     */
+    const unaryOperation = (opcode: string): void => {
+      const operand = Number(inputField.value);
+      let result: number;
+      switch (opcode) {
+        case "factorial":
+          if (operand < 0) {
+            result = NaN;
+          } else {
+            // Compute very close approximation + round if operand is integer.
+            // O(1) and supports floating points (not just integers).
+            const z = operand + 1;
+            result =
+              Math.sqrt((2 * Math.PI) / z) *
+              Math.pow((1 / Math.E) * (z + 1 / (12 * z - 1 / (10 * z))), z);
+            if (Number.isInteger(operand)) {
+              result = Math.round(result);
+            }
+          }
+          break;
+        default:
+          result = NaN;
+          break;
+      }
+      const newValue = String(capSigFigs(result));
+      inputField.value = newValue;
+    };
+
+    /**
      * Performs binary operations.
      * @param opcode - Which op to perform. Must be one of: add, sub, mul, div
      */
@@ -195,6 +226,7 @@ const App = defineComponent({
       addDigit,
       enter,
       hasIndex,
+      unaryOperation,
       binaryOperation,
       memoryInput,
       memoryRecall,
