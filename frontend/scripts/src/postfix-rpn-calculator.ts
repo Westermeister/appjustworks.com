@@ -120,7 +120,7 @@ const App = defineComponent({
     };
 
     /**
-     * Performs unary operations.
+     * Performs unary mathematical operations.
      * @param opcode - Which op to perform. Must be one of: fact
      */
     const unaryOperation = (opcode: string): void => {
@@ -154,7 +154,7 @@ const App = defineComponent({
     };
 
     /**
-     * Performs binary operations.
+     * Performs binary mathematical operations.
      * @param opcode - Which op to perform. Must be one of: add, sub, mul, div
      */
     const binaryOperation = (opcode: string): void => {
@@ -184,6 +184,16 @@ const App = defineComponent({
       // Cap maximum precision, while also circumventing rounding errors from floating point math.
       const newValue = String(capSigFigs(result));
       inputField.value = newValue;
+    };
+
+    /** Swaps the input field's value and the top stack value. */
+    const swap = (): void => {
+      if (stack.value.length === 0) {
+        return;
+      }
+      const temp = inputField.value;
+      inputField.value = String(stack.value[stack.value.length - 1]);
+      stack.value[stack.value.length - 1] = temp;
     };
 
     const {
@@ -231,6 +241,7 @@ const App = defineComponent({
       hasIndex,
       unaryOperation,
       binaryOperation,
+      swap,
       memoryInput,
       memoryRecall,
       memoryAdd,
