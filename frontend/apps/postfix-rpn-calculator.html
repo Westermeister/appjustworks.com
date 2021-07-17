@@ -173,7 +173,13 @@
             </button>
           </div>
           <div class="col-2">
-            <button type="button" class="calc-btn-generic">+/-</button>
+            <button
+              type="button"
+              class="calc-btn-generic"
+              v-on:click="unaryOperation('negate')"
+            >
+              +/-
+            </button>
           </div>
           <div class="col-2">
             <button type="button" class="calc-btn-generic">swap</button>

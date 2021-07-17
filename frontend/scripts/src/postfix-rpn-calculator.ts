@@ -142,6 +142,9 @@ const App = defineComponent({
             }
           }
           break;
+        case "negate":
+          result = -operand;
+          break;
         default:
           result = NaN;
           break;
