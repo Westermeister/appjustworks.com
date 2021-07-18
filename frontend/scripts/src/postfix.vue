@@ -338,7 +338,7 @@ function capSigFigs(value: number): number {
  * @param stack - Reference to the calculator's stack.
  * @returns Methods for unary and binary mathematical operations.
  */
-function useMathOperations(inputField: Ref<string>, stack: Ref<string[]>) {
+function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
   /**
    * Performs unary mathematical operations.
    * @param opcode - Which op to perform. Must be one of: factorial
@@ -560,7 +560,7 @@ const App = defineComponent({
       }
     };
 
-    const { unaryOperation, binaryOperation } = useMathOperations(
+    const { unaryOperation, binaryOperation } = useMathOperation(
       inputField,
       stack
     );
