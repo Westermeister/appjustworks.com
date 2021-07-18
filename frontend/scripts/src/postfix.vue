@@ -133,7 +133,11 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('square')"
+      >
         <sub>X</sub><small>2</small>
       </button>
     </div>
@@ -397,6 +401,9 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "logBase2":
         result = Math.log2(operand);
+        break;
+      case "square":
+        result = operand ** 2;
         break;
       default:
         result = NaN;
