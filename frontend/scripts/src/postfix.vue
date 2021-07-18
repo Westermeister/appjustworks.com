@@ -323,11 +323,90 @@ function capSigFigs(value: number): number {
 }
 
 /**
+ * Responsible for all mathematical operations (excluding memory add/subtract).
+ * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
+ * @param stack - Reference to the calculator's stack.
+ */
+function useMathOperations(inputField: Ref<string>, stack: Ref<string[]>) {
+  /**
+   * Performs unary mathematical operations.
+   * @param opcode - Which op to perform. Must be one of: factorial
+   */
+  const unaryOperation = (opcode: string): void => {
+    const operand = Number(inputField.value);
+    let result: number;
+    switch (opcode) {
+      case "factorial":
+        if (operand < 0) {
+          result = NaN;
+        } else {
+          // Compute very close approximation + round if operand is integer.
+          // O(1) and supports floating points (not just integers).
+          const z = operand + 1;
+          result =
+            Math.sqrt((2 * Math.PI) / z) *
+            Math.pow((1 / Math.E) * (z + 1 / (12 * z - 1 / (10 * z))), z);
+          if (Number.isInteger(operand)) {
+            result = Math.round(result);
+          }
+        }
+        break;
+      case "negate":
+        result = -operand;
+        break;
+      default:
+        result = NaN;
+        break;
+    }
+    const newValue = String(capSigFigs(result));
+    inputField.value = newValue;
+  };
+
+  /**
+   * Performs binary mathematical operations.
+   * @param opcode - Which op to perform. Must be one of: add, sub, mul, div
+   */
+  const binaryOperation = (opcode: string): void => {
+    // If we don't have a second operand, do nothing.
+    if (stack.value.length === 0) {
+      return;
+    }
+    const operands = [Number(inputField.value), Number(stack.value.pop())];
+    let result: number;
+    switch (opcode) {
+      case "add":
+        result = operands[1] + operands[0];
+        break;
+      case "subtract":
+        result = operands[1] - operands[0];
+        break;
+      case "multiply":
+        result = operands[1] * operands[0];
+        break;
+      case "divide":
+        result = operands[1] / operands[0];
+        break;
+      default:
+        result = NaN;
+        break;
+    }
+    // Cap maximum precision, while also circumventing rounding errors from floating point math.
+    const newValue = String(capSigFigs(result));
+    inputField.value = newValue;
+  };
+
+  return {
+    unaryOperation,
+    binaryOperation,
+  };
+}
+
+/**
  * Responsible for all memory buttons i.e. input, add, subtract, recall, and clearing.
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
  * @returns Memory utilities for accessing and manipulating memory.
  */
-function memory(inputField: Ref<string>): {
+function useMemory(inputField: Ref<string>): {
   memoryInput: () => void;
   memoryRecall: () => void;
   memoryAdd: () => void;
@@ -427,73 +506,6 @@ const App = defineComponent({
       return true;
     };
 
-    /**
-     * Performs unary mathematical operations.
-     * @param opcode - Which op to perform. Must be one of: fact
-     */
-    const unaryOperation = (opcode: string): void => {
-      const operand = Number(inputField.value);
-      let result: number;
-      switch (opcode) {
-        case "factorial":
-          if (operand < 0) {
-            result = NaN;
-          } else {
-            // Compute very close approximation + round if operand is integer.
-            // O(1) and supports floating points (not just integers).
-            const z = operand + 1;
-            result =
-              Math.sqrt((2 * Math.PI) / z) *
-              Math.pow((1 / Math.E) * (z + 1 / (12 * z - 1 / (10 * z))), z);
-            if (Number.isInteger(operand)) {
-              result = Math.round(result);
-            }
-          }
-          break;
-        case "negate":
-          result = -operand;
-          break;
-        default:
-          result = NaN;
-          break;
-      }
-      const newValue = String(capSigFigs(result));
-      inputField.value = newValue;
-    };
-
-    /**
-     * Performs binary mathematical operations.
-     * @param opcode - Which op to perform. Must be one of: add, sub, mul, div
-     */
-    const binaryOperation = (opcode: string): void => {
-      // If we don't have a second operand, do nothing.
-      if (stack.value.length === 0) {
-        return;
-      }
-      const operands = [Number(inputField.value), Number(stack.value.pop())];
-      let result: number;
-      switch (opcode) {
-        case "add":
-          result = operands[1] + operands[0];
-          break;
-        case "subtract":
-          result = operands[1] - operands[0];
-          break;
-        case "multiply":
-          result = operands[1] * operands[0];
-          break;
-        case "divide":
-          result = operands[1] / operands[0];
-          break;
-        default:
-          result = NaN;
-          break;
-      }
-      // Cap maximum precision, while also circumventing rounding errors from floating point math.
-      const newValue = String(capSigFigs(result));
-      inputField.value = newValue;
-    };
-
     /** Swaps the input field's value and the top stack value. */
     const swap = (): void => {
       if (stack.value.length === 0) {
@@ -512,13 +524,18 @@ const App = defineComponent({
       }
     };
 
+    const { unaryOperation, binaryOperation } = useMathOperations(
+      inputField,
+      stack
+    );
+
     const {
       memoryInput,
       memoryRecall,
       memoryAdd,
       memorySubtract,
       memoryClear,
-    } = memory(inputField);
+    } = useMemory(inputField);
 
     /** Clears the stack, the input field, and memory i.e. clears everything. */
     const allClear = (): void => {
