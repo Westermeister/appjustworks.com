@@ -9,8 +9,8 @@ const SCRIPTS_DIST = ["frontend", "scripts", "dist"];
 module.exports = {
   mode: "production",
   entry: {
-    "rank-a-list-of-items": `${SCRIPTS_SRC}/rank-a-list-of-items.tsx`,
-    "postfix-rpn-calculator": `${SCRIPTS_SRC}/postfix-rpn-calculator.js`,
+    rank: `${SCRIPTS_SRC}/rank.tsx`,
+    postfix: `${SCRIPTS_SRC}/postfix.js`,
   },
   module: {
     rules: [

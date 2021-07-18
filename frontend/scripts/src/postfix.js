@@ -5,6 +5,6 @@
 
 import { createApp } from "vue";
 
-import App from "./postfix-rpn-calculator.vue";
+import App from "./postfix.vue";
 
 createApp(App).mount("#app");
