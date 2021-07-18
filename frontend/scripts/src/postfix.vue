@@ -59,7 +59,13 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">1/x</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('invert')"
+      >
+        1/x
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">round</button>
@@ -523,6 +529,9 @@ function useMathOperation(
         result = usingRadians.value
           ? Math.atan(operand)
           : Math.atan(operand) * (180 / Math.PI);
+        break;
+      case "invert":
+        result = 1 / operand;
         break;
       default:
         result = NaN;
