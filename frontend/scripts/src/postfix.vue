@@ -124,7 +124,13 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">log<sub>y</sub>x</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="binaryOperation('logBaseY')"
+      >
+        log<sub>y</sub>x
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">
@@ -426,6 +432,9 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "modulus":
         result = operands[1] % operands[0];
+        break;
+      case "logBaseY":
+        result = Math.log(operands[0]) / Math.log(operands[1]);
         break;
       default:
         result = NaN;
