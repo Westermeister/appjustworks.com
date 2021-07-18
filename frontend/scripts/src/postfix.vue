@@ -62,7 +62,13 @@
     <!-- Trig functions -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">sin</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('sin')"
+      >
+        sin
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">cos</button>
@@ -408,9 +414,14 @@ function capSigFigs(value: number): number {
  * Responsible for all mathematical operations (excluding memory add/subtract).
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
  * @param stack - Reference to the calculator's stack.
+ * @param usingRadians - Reference to a boolean telling whether calculator is in radians or degrees mode.
  * @returns Methods for unary and binary mathematical operations.
  */
-function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
+function useMathOperation(
+  inputField: Ref<string>,
+  stack: Ref<string[]>,
+  usingRadians: Ref<boolean>
+) {
   /**
    * Performs unary mathematical operations.
    * @param opcode - Which op to perform. Must be one of: factorial
@@ -460,6 +471,11 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "sqrt":
         result = Math.sqrt(operand);
+        break;
+      case "sin":
+        result = usingRadians.value
+          ? Math.sin(operand)
+          : Math.sin(operand * (Math.PI / 180));
         break;
       default:
         result = NaN;
@@ -674,7 +690,8 @@ const App = defineComponent({
 
     const { unaryOperation, binaryOperation } = useMathOperation(
       inputField,
-      stack
+      stack,
+      usingRadians
     );
 
     const { eulersNumber, pi } = useConstant(inputField);
