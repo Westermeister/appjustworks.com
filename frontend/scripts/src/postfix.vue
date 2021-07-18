@@ -50,7 +50,13 @@
       <button type="button" class="calc-btn-generic" @click="percent">%</button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">&#x25B3;%</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="binaryOperation('percentDiff')"
+      >
+        &#x25B3;%
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">1/x</button>
@@ -561,6 +567,9 @@ function useMathOperation(
         break;
       case "xRootY":
         result = operands[1] ** (1 / operands[0]);
+        break;
+      case "percentDiff":
+        result = ((operands[0] - operands[1]) / operands[1]) * 100;
         break;
       default:
         result = NaN;
