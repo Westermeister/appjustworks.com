@@ -332,6 +332,7 @@ function capSigFigs(value: number): number {
  * Responsible for all mathematical operations (excluding memory add/subtract).
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
  * @param stack - Reference to the calculator's stack.
+ * @returns Methods for unary and binary mathematical operations.
  */
 function useMathOperations(inputField: Ref<string>, stack: Ref<string[]>) {
   /**
