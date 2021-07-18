@@ -18,17 +18,17 @@
 }
 
 .calc-btn {
-  @extend .px-0, .py-1;
+  @extend .px-0, .py-1, .col-12, .btn;
 }
 
 .calc-btn-num {
-  @extend .calc-btn, .col-12, .btn, .btn-secondary;
+  @extend .calc-btn, .btn-secondary;
 }
 
 .calc-btn-generic {
-  @extend .calc-btn, .col-12, .btn, .btn-dark;
+  @extend .calc-btn, .btn-dark;
 }
 
 .calc-btn-highlight {
-  @extend .calc-btn, .col-12, .btn, .btn-primary;
+  @extend .calc-btn, .btn-primary;
 }
