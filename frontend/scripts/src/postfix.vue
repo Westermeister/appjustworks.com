@@ -114,7 +114,9 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">&#x3C0;</button>
+      <button type="button" class="calc-btn-generic" v-on:click="pi">
+        &#x3C0;
+      </button>
     </div>
 
     <!-- Operations incl. factorial, positive/negative, swap, roll, modulus, and e constant -->
@@ -157,7 +159,9 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">e</button>
+      <button type="button" class="calc-btn-generic" v-on:click="eulersNumber">
+        e
+      </button>
     </div>
 
     <!-- Top numerical row: includes AC, memory add, numbers, and division -->
@@ -412,6 +416,28 @@ function useMathOperations(inputField: Ref<string>, stack: Ref<string[]>) {
 }
 
 /**
+ * Provides mathematical constants.
+ * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
+ * @returns Methods that replace the input field with the corresponding constant.
+ */
+function useConstant(inputField: Ref<string>) {
+  /** Replaces input with Euler's number. */
+  const eulersNumber = (): void => {
+    inputField.value = String(capSigFigs(Math.E));
+  };
+
+  /** Replaces input with pi. */
+  const pi = (): void => {
+    inputField.value = String(capSigFigs(Math.PI));
+  };
+
+  return {
+    eulersNumber,
+    pi,
+  };
+}
+
+/**
  * Responsible for all memory buttons i.e. input, add, subtract, recall, and clearing.
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
  * @returns Memory utilities for accessing and manipulating memory.
@@ -539,6 +565,8 @@ const App = defineComponent({
       stack
     );
 
+    const { eulersNumber, pi } = useConstant(inputField);
+
     const {
       memoryInput,
       memoryRecall,
@@ -589,6 +617,8 @@ const App = defineComponent({
       hasIndex,
       unaryOperation,
       binaryOperation,
+      eulersNumber,
+      pi,
       swap,
       roll,
       memoryInput,
