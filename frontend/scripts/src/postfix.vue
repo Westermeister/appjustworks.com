@@ -89,13 +89,31 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">asin</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('asin')"
+      >
+        asin
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">acos</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('acos')"
+      >
+        acos
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">atan</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('atan')"
+      >
+        atan
+      </button>
     </div>
 
     <!-- Exponents and square roots -->
@@ -484,6 +502,21 @@ function useMathOperation(
         result = usingRadians.value
           ? Math.tan(operand)
           : Math.tan(operand * (Math.PI / 180));
+        break;
+      case "asin":
+        result = usingRadians.value
+          ? Math.asin(operand)
+          : Math.asin(operand) * (180 / Math.PI);
+        break;
+      case "acos":
+        result = usingRadians.value
+          ? Math.acos(operand)
+          : Math.acos(operand) * (180 / Math.PI);
+        break;
+      case "atan":
+        result = usingRadians.value
+          ? Math.atan(operand)
+          : Math.atan(operand) * (180 / Math.PI);
         break;
       default:
         result = NaN;
