@@ -23,10 +23,28 @@
     <!-- Radian/degree toggle, percent and percent diff ops, inverse op, and rounding function -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">rad</button>
+      <button
+        type="button"
+        :class="{
+          'calc-btn-highlight': usingRadians,
+          'calc-btn-num': !usingRadians,
+        }"
+        v-on:click="toggleRadians"
+      >
+        rad
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">deg</button>
+      <button
+        type="button"
+        :class="{
+          'calc-btn-num': usingRadians,
+          'calc-btn-highlight': !usingRadians,
+        }"
+        v-on:click="toggleRadians"
+      >
+        deg
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">%</button>
@@ -585,6 +603,13 @@ const App = defineComponent({
     // Enables completely overwriting the entry row.
     // Activates after pressing enter, then immediately deactivates.
     const readyForOverwrite = ref(false);
+    // Controls whether the calculator is in radians or degrees mode.
+    const usingRadians = ref(true);
+
+    /** Toggles the use of radians or degrees. */
+    const toggleRadians = (): void => {
+      usingRadians.value = !usingRadians.value;
+    };
 
     /**
      * Adds a digit to the input field.
@@ -699,6 +724,8 @@ const App = defineComponent({
     return {
       stack,
       inputField,
+      usingRadians,
+      toggleRadians,
       addDigit,
       enter,
       hasIndex,
