@@ -65,7 +65,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('sin')"
+        @click="unaryOperation('sin')"
       >
         sin
       </button>
@@ -93,7 +93,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('powerOf10')"
+        @click="unaryOperation('powerOf10')"
       >
         <sub>10</sub><small>x</small>
       </button>
@@ -102,7 +102,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('powerOfE')"
+        @click="unaryOperation('powerOfE')"
       >
         <sub>e</sub><small>x</small>
       </button>
@@ -111,7 +111,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('powerOf2')"
+        @click="unaryOperation('powerOf2')"
       >
         <sub>2</sub><small>x</small>
       </button>
@@ -120,7 +120,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="binaryOperation('powerOfY')"
+        @click="binaryOperation('powerOfY')"
       >
         <sub>y</sub><small>x</small>
       </button>
@@ -129,7 +129,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('sqrt')"
+        @click="unaryOperation('sqrt')"
       >
         &#x221A;x
       </button>
@@ -138,7 +138,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="binaryOperation('xRootY')"
+        @click="binaryOperation('xRootY')"
       >
         <small>x</small><sub>&#x221A;y</sub>
       </button>
@@ -150,7 +150,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('logBase10')"
+        @click="unaryOperation('logBase10')"
       >
         log<sub>10</sub>
       </button>
@@ -159,7 +159,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('naturalLog')"
+        @click="unaryOperation('naturalLog')"
       >
         ln
       </button>
@@ -168,7 +168,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('logBase2')"
+        @click="unaryOperation('logBase2')"
       >
         log<sub>2</sub>
       </button>
@@ -177,7 +177,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="binaryOperation('logBaseY')"
+        @click="binaryOperation('logBaseY')"
       >
         log<sub>y</sub>x
       </button>
@@ -186,13 +186,13 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('square')"
+        @click="unaryOperation('square')"
       >
         <sub>X</sub><small>2</small>
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="pi">
+      <button type="button" class="calc-btn-generic" @click="pi">
         &#x3C0;
       </button>
     </div>
@@ -203,7 +203,7 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('factorial')"
+        @click="unaryOperation('factorial')"
       >
         x!
       </button>
@@ -212,32 +212,28 @@
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="unaryOperation('negate')"
+        @click="unaryOperation('negate')"
       >
         +/-
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="swap">
-        swap
-      </button>
+      <button type="button" class="calc-btn-generic" @click="swap">swap</button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="roll">
-        roll
-      </button>
+      <button type="button" class="calc-btn-generic" @click="roll">roll</button>
     </div>
     <div class="col-2">
       <button
         type="button"
         class="calc-btn-generic"
-        v-on:click="binaryOperation('modulus')"
+        @click="binaryOperation('modulus')"
       >
         mod
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="eulersNumber">
+      <button type="button" class="calc-btn-generic" @click="eulersNumber">
         e
       </button>
     </div>
@@ -245,27 +241,27 @@
     <!-- Top numerical row: includes AC, memory add, numbers, and division -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="allClear">
+      <button type="button" class="calc-btn-generic" @click="allClear">
         AC
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="memoryAdd">
+      <button type="button" class="calc-btn-generic" @click="memoryAdd">
         m+
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('7')">
+      <button type="button" class="calc-btn-num" @click="addDigit('7')">
         7
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('8')">
+      <button type="button" class="calc-btn-num" @click="addDigit('8')">
         8
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('9')">
+      <button type="button" class="calc-btn-num" @click="addDigit('9')">
         9
       </button>
     </div>
@@ -273,7 +269,7 @@
       <button
         type="button"
         class="calc-btn-highlight fw-bold"
-        v-on:click="binaryOperation('divide')"
+        @click="binaryOperation('divide')"
       >
         &#xF7;
       </button>
@@ -282,31 +278,27 @@
     <!-- Includes memory clear, memory subtract, numbers, and multiplication -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="memoryClear">
+      <button type="button" class="calc-btn-generic" @click="memoryClear">
         MC
       </button>
     </div>
     <div class="col-2">
-      <button
-        type="button"
-        class="calc-btn-generic"
-        v-on:click="memorySubtract"
-      >
+      <button type="button" class="calc-btn-generic" @click="memorySubtract">
         m-
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('4')">
+      <button type="button" class="calc-btn-num" @click="addDigit('4')">
         4
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('5')">
+      <button type="button" class="calc-btn-num" @click="addDigit('5')">
         5
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('6')">
+      <button type="button" class="calc-btn-num" @click="addDigit('6')">
         6
       </button>
     </div>
@@ -314,7 +306,7 @@
       <button
         type="button"
         class="calc-btn-highlight fw-bold"
-        v-on:click="binaryOperation('multiply')"
+        @click="binaryOperation('multiply')"
       >
         &#xD7;
       </button>
@@ -323,27 +315,27 @@
     <!-- Second to last row: includes CE, memory input, numbers, and subtraction -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="clearEntry">
+      <button type="button" class="calc-btn-generic" @click="clearEntry">
         CE
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="memoryInput">
+      <button type="button" class="calc-btn-generic" @click="memoryInput">
         m in
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('1')">
+      <button type="button" class="calc-btn-num" @click="addDigit('1')">
         1
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('2')">
+      <button type="button" class="calc-btn-num" @click="addDigit('2')">
         2
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('3')">
+      <button type="button" class="calc-btn-num" @click="addDigit('3')">
         3
       </button>
     </div>
@@ -351,7 +343,7 @@
       <button
         type="button"
         class="calc-btn-highlight fw-bold"
-        v-on:click="binaryOperation('subtract')"
+        @click="binaryOperation('subtract')"
       >
         &#x2212;
       </button>
@@ -360,37 +352,31 @@
     <!-- Final row: includes drop, memory recall, 0, decimal point, enter, and addition -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="drop">
-        drop
-      </button>
+      <button type="button" class="calc-btn-generic" @click="drop">drop</button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" v-on:click="memoryRecall">
+      <button type="button" class="calc-btn-generic" @click="memoryRecall">
         m re
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" v-on:click="addDigit('0')">
+      <button type="button" class="calc-btn-num" @click="addDigit('0')">
         0
       </button>
     </div>
     <div class="col-2">
-      <button
-        type="button"
-        class="calc-btn-num fw-bold"
-        v-on:click="addDigit('.')"
-      >
+      <button type="button" class="calc-btn-num fw-bold" @click="addDigit('.')">
         .
       </button>
     </div>
     <div class="col-2">
-      <div class="calc-btn-highlight" v-on:click="enter">enter</div>
+      <div class="calc-btn-highlight" @click="enter">enter</div>
     </div>
     <div class="col-2">
       <button
         type="button"
         class="calc-btn-highlight fw-bold"
-        v-on:click="binaryOperation('add')"
+        @click="binaryOperation('add')"
       >
         &#x2B;
       </button>
