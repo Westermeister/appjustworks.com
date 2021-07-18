@@ -66,17 +66,29 @@
     <!-- Note the use of subscripts instead of superscripts b/c the former doesn't change the button's height. -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('powerOf10')"
+      >
         <sub>10</sub><small>x</small>
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('powerOfE')"
+      >
         <sub>e</sub><small>x</small>
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('powerOf2')"
+      >
         <sub>2</sub><small>x</small>
       </button>
     </div>
@@ -404,6 +416,15 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "square":
         result = operand ** 2;
+        break;
+      case "powerOf10":
+        result = 10 ** operand;
+        break;
+      case "powerOfE":
+        result = Math.E ** operand;
+        break;
+      case "powerOf2":
+        result = 2 ** operand;
         break;
       default:
         result = NaN;
