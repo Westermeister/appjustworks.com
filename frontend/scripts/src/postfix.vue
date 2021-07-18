@@ -47,7 +47,7 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">%</button>
+      <button type="button" class="calc-btn-generic" @click="percent">%</button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">&#x25B3;%</button>
@@ -427,7 +427,7 @@ function capSigFigs(value: number): number {
 }
 
 /**
- * Responsible for all mathematical operations (excluding memory add/subtract).
+ * Responsible for all mathematical operations (excluding memory add/subtract, and percentage).
  * @param inputField - Reference to a stringified number that represents the value of the calculator's input field.
  * @param stack - Reference to the calculator's stack.
  * @param usingRadians - Reference to a boolean telling whether calculator is in radians or degrees mode.
@@ -730,6 +730,19 @@ const App = defineComponent({
       usingRadians
     );
 
+    /** Computes X percent of the top of the stack. */
+    const percent = (): void => {
+      // Note this is a binary operation, but it doesn't affect the stack like the other binary operations.
+      // That's why this function is separated from useMathOperation above.
+      if (stack.value.length === 0) {
+        return;
+      }
+      const percentage = Number(inputField.value) / 100;
+      const topOfStack = Number(stack.value[stack.value.length - 1]);
+      const result = capSigFigs(percentage * topOfStack);
+      inputField.value = String(result);
+    };
+
     const { eulersNumber, pi } = useConstant(inputField);
 
     const {
@@ -785,6 +798,7 @@ const App = defineComponent({
       binaryOperation,
       eulersNumber,
       pi,
+      percent,
       swap,
       roll,
       memoryInput,
