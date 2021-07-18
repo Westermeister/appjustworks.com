@@ -29,7 +29,7 @@
           'calc-btn-highlight': usingRadians,
           'calc-btn-num': !usingRadians,
         }"
-        v-on:click="toggleRadians"
+        @click="usingRadians = true"
       >
         rad
       </button>
@@ -41,7 +41,7 @@
           'calc-btn-num': usingRadians,
           'calc-btn-highlight': !usingRadians,
         }"
-        v-on:click="toggleRadians"
+        @click="usingRadians = false"
       >
         deg
       </button>
@@ -622,11 +622,6 @@ const App = defineComponent({
     // Controls whether the calculator is in radians or degrees mode.
     const usingRadians = ref(true);
 
-    /** Toggles the use of radians or degrees. */
-    const toggleRadians = (): void => {
-      usingRadians.value = !usingRadians.value;
-    };
-
     /**
      * Adds a digit to the input field.
      * @param digit - The digit to add. Can be a decimal point as well.
@@ -742,7 +737,6 @@ const App = defineComponent({
       stack,
       inputField,
       usingRadians,
-      toggleRadians,
       addDigit,
       enter,
       hasIndex,
