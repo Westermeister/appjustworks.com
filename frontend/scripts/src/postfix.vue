@@ -148,7 +148,13 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">mod</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="binaryOperation('modulus')"
+      >
+        mod
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">e</button>
@@ -385,6 +391,9 @@ function useMathOperations(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "divide":
         result = operands[1] / operands[0];
+        break;
+      case "modulus":
+        result = operands[1] % operands[0];
         break;
       default:
         result = NaN;
