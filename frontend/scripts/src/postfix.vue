@@ -233,11 +233,7 @@
     <!-- Second to last row: includes CE, memory input, numbers, and subtraction -->
 
     <div class="col-2">
-      <button
-        type="button"
-        class="calc-btn-generic"
-        v-on:click="clearLastEntry"
-      >
+      <button type="button" class="calc-btn-generic" v-on:click="clearEntry">
         CE
       </button>
     </div>
@@ -521,17 +517,22 @@ const App = defineComponent({
       memoryClear();
     };
 
-    /** Removes the last digit added to the input field. */
-    const clearLastEntry = (): void => {
-      if (inputField.value === "0") return;
-      if (inputField.value.length === 1) {
-        inputField.value = "0";
-      } else {
-        inputField.value = inputField.value.slice(
-          0,
-          inputField.value.length - 1
-        );
+    /** Implements CE button by clearing all or part of the input field, depending on certain conditions. */
+    const clearEntry = (): void => {
+      if (inputField.value === "0") {
+        return;
       }
+      if (
+        inputField.value.length === 1 ||
+        inputField.value === "Infinity" ||
+        inputField.value === "NaN" ||
+        inputField.value.includes("e+") ||
+        inputField.value.includes("e-")
+      ) {
+        inputField.value = "0";
+        return;
+      }
+      inputField.value = inputField.value.slice(0, -1);
     };
 
     /** Drops the input field, pops the stack, and uses that value as the replacement. */
@@ -558,7 +559,7 @@ const App = defineComponent({
       memorySubtract,
       memoryClear,
       allClear,
-      clearLastEntry,
+      clearEntry,
       drop,
     };
   },
