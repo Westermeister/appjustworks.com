@@ -71,10 +71,22 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">cos</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('cos')"
+      >
+        cos
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">tan</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('tan')"
+      >
+        tan
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">asin</button>
@@ -462,6 +474,16 @@ function useMathOperation(
         result = usingRadians.value
           ? Math.sin(operand)
           : Math.sin(operand * (Math.PI / 180));
+        break;
+      case "cos":
+        result = usingRadians.value
+          ? Math.cos(operand)
+          : Math.cos(operand * (Math.PI / 180));
+        break;
+      case "tan":
+        result = usingRadians.value
+          ? Math.tan(operand)
+          : Math.tan(operand * (Math.PI / 180));
         break;
       default:
         result = NaN;
