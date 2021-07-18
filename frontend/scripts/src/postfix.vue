@@ -97,13 +97,31 @@
     <!-- More exponents, logarithms, and pi -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">log<sub>10</sub></button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('logBase10')"
+      >
+        log<sub>10</sub>
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">ln</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('naturalLog')"
+      >
+        ln
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">log<sub>2</sub></button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('logBase2')"
+      >
+        log<sub>2</sub>
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">log<sub>y</sub>x</button>
@@ -364,6 +382,15 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "negate":
         result = -operand;
+        break;
+      case "logBase10":
+        result = Math.log10(operand);
+        break;
+      case "naturalLog":
+        result = Math.log(operand);
+        break;
+      case "logBase2":
+        result = Math.log2(operand);
         break;
       default:
         result = NaN;
