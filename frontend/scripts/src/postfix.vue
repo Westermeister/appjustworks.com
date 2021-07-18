@@ -143,7 +143,9 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">roll</button>
+      <button type="button" class="calc-btn-generic" v-on:click="roll">
+        roll
+      </button>
     </div>
     <div class="col-2">
       <button type="button" class="calc-btn-generic">mod</button>
@@ -502,6 +504,14 @@ const App = defineComponent({
       stack.value[stack.value.length - 1] = temp;
     };
 
+    /** Adds input field to the BOTTOM of the stack, and replaces it with the value at the TOP of the stack. */
+    const roll = (): void => {
+      if (stack.value.length >= 1) {
+        stack.value.unshift(inputField.value);
+        inputField.value = stack.value.pop() as string;
+      }
+    };
+
     const {
       memoryInput,
       memoryRecall,
@@ -553,6 +563,7 @@ const App = defineComponent({
       unaryOperation,
       binaryOperation,
       swap,
+      roll,
       memoryInput,
       memoryRecall,
       memoryAdd,
