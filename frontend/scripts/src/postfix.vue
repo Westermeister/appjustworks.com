@@ -102,10 +102,20 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">&#x221A;x</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="unaryOperation('sqrt')"
+      >
+        &#x221A;x
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">
+      <button
+        type="button"
+        class="calc-btn-generic"
+        v-on:click="binaryOperation('xRootY')"
+      >
         <small>x</small><sub>&#x221A;y</sub>
       </button>
     </div>
@@ -430,6 +440,9 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
       case "powerOf2":
         result = 2 ** operand;
         break;
+      case "sqrt":
+        result = Math.sqrt(operand);
+        break;
       default:
         result = NaN;
         break;
@@ -470,6 +483,9 @@ function useMathOperation(inputField: Ref<string>, stack: Ref<string[]>) {
         break;
       case "powerOfY":
         result = operands[1] ** operands[0];
+        break;
+      case "xRootY":
+        result = operands[1] ** (1 / operands[0]);
         break;
       default:
         result = NaN;
