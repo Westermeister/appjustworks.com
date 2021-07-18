@@ -68,7 +68,13 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic">round</button>
+      <button
+        type="button"
+        class="calc-btn-generic"
+        @click="unaryOperation('round')"
+      >
+        round
+      </button>
     </div>
 
     <!-- Trig functions -->
@@ -532,6 +538,18 @@ function useMathOperation(
         break;
       case "invert":
         result = 1 / operand;
+        break;
+      case "round":
+        // Implement banker's rounding i.e. round half towards even.
+        const roundedHalfUp = Math.round(operand);
+        const roundedHalfDown = -Math.round(-operand);
+        if (roundedHalfUp === roundedHalfDown) {
+          result = roundedHalfUp;
+        } else if (roundedHalfUp % 2 === 0) {
+          result = roundedHalfUp;
+        } else {
+          result = roundedHalfDown;
+        }
         break;
       default:
         result = NaN;
