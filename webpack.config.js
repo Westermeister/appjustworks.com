@@ -1,5 +1,6 @@
 const path = require("path");
 
+const { VueLoaderPlugin } = require("vue-loader");
 const WebpackObfuscator = require("webpack-obfuscator");
 
 const SCRIPTS_SRC = "./frontend/scripts/src";
@@ -9,27 +10,25 @@ module.exports = {
   mode: "production",
   entry: {
     "rank-a-list-of-items": `${SCRIPTS_SRC}/rank-a-list-of-items.tsx`,
-    "postfix-rpn-calculator": `${SCRIPTS_SRC}/postfix-rpn-calculator.ts`,
+    "postfix-rpn-calculator": `${SCRIPTS_SRC}/postfix-rpn-calculator.js`,
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
+        loader: "ts-loader",
         exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        },
       },
       {
-        test: /\.tsx?$/,
-        enforce: "post",
-        use: {
-          loader: WebpackObfuscator.loader,
-          options: {
-            optionsPreset: "medium-obfuscation",
-          },
-        },
+        test: /\.vue$/,
+        loader: "vue-loader",
       },
     ],
   },
+  plugins: [new VueLoaderPlugin(), new WebpackObfuscator()],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },

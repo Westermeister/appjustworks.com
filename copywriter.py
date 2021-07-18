@@ -5,6 +5,10 @@ import os
 # Get relative paths to each source file.
 sources = os.listdir("./frontend/scripts/src")
 sources = [os.path.join(".", "frontend", "scripts", "src", filename) for filename in sources]
+# Get rid of auxiliary files from Vue. We're only concerned with the source entry points.
+for i in reversed(range(len(sources))):
+  if ".vue" in sources[i]:
+    del sources[i]
 sources.sort()
 
 # Get relative paths to each dist file.
