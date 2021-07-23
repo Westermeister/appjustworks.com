@@ -32,6 +32,14 @@ all: eslint html prettier scripts styles
 check: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS)
 
+.PHONY: check-rank
+check-rank: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/rank.spec.ts
+
+.PHONY: check-postfix
+check-postfix: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/postfix.spec.ts
+
 # END: Standard targets.
 
 .PHONY: eslint

@@ -5,18 +5,18 @@
 
 <template>
   <div id="display">
-    <div v-if="hasIndex(stack.length - 3)">
+    <div v-if="hasIndex(stack.length - 3)" id="row-3">
       {{ stack[stack.length - 3] }}
     </div>
-    <div v-else>&nbsp;</div>
-    <div v-if="hasIndex(stack.length - 2)">
+    <div v-else id="row-3">&nbsp;</div>
+    <div v-if="hasIndex(stack.length - 2)" id="row-2">
       {{ stack[stack.length - 2] }}
     </div>
-    <div v-else>&nbsp;</div>
-    <div v-if="hasIndex(stack.length - 1)">
+    <div v-else id="row-2">&nbsp;</div>
+    <div v-if="hasIndex(stack.length - 1)" id="row-1">
       {{ stack[stack.length - 1] }}
     </div>
-    <div v-else>&nbsp;</div>
+    <div v-else id="row-1">&nbsp;</div>
     <div id="input-field">{{ inputField }}</div>
   </div>
   <div class="row g-1">
@@ -25,6 +25,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="rad"
         :class="{
           'calc-btn-highlight': usingRadians,
           'calc-btn-num': !usingRadians,
@@ -37,6 +38,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="deg"
         :class="{
           'calc-btn-num': usingRadians,
           'calc-btn-highlight': !usingRadians,
@@ -47,11 +49,19 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="percent">%</button>
+      <button
+        type="button"
+        id="percent"
+        class="calc-btn-generic"
+        @click="percent"
+      >
+        %
+      </button>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="percentDiff"
         class="calc-btn-generic"
         @click="binaryOperation('percentDiff')"
       >
@@ -61,6 +71,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="invert"
         class="calc-btn-generic"
         @click="unaryOperation('invert')"
       >
@@ -70,6 +81,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="round"
         class="calc-btn-generic"
         @click="unaryOperation('round')"
       >
@@ -82,6 +94,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="sin"
         class="calc-btn-generic"
         @click="unaryOperation('sin')"
       >
@@ -91,6 +104,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="cos"
         class="calc-btn-generic"
         @click="unaryOperation('cos')"
       >
@@ -100,6 +114,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="tan"
         class="calc-btn-generic"
         @click="unaryOperation('tan')"
       >
@@ -109,6 +124,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="asin"
         class="calc-btn-generic"
         @click="unaryOperation('asin')"
       >
@@ -118,6 +134,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="acos"
         class="calc-btn-generic"
         @click="unaryOperation('acos')"
       >
@@ -127,6 +144,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="atan"
         class="calc-btn-generic"
         @click="unaryOperation('atan')"
       >
@@ -140,6 +158,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="powerOf10"
         class="calc-btn-generic"
         @click="unaryOperation('powerOf10')"
       >
@@ -149,6 +168,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="powerOfE"
         class="calc-btn-generic"
         @click="unaryOperation('powerOfE')"
       >
@@ -158,6 +178,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="powerOf2"
         class="calc-btn-generic"
         @click="unaryOperation('powerOf2')"
       >
@@ -167,6 +188,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="powerOfY"
         class="calc-btn-generic"
         @click="binaryOperation('powerOfY')"
       >
@@ -176,6 +198,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="sqrt"
         class="calc-btn-generic"
         @click="unaryOperation('sqrt')"
       >
@@ -185,6 +208,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="xRootY"
         class="calc-btn-generic"
         @click="binaryOperation('xRootY')"
       >
@@ -197,6 +221,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="logBase10"
         class="calc-btn-generic"
         @click="unaryOperation('logBase10')"
       >
@@ -206,6 +231,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="naturalLog"
         class="calc-btn-generic"
         @click="unaryOperation('naturalLog')"
       >
@@ -215,6 +241,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="logBase2"
         class="calc-btn-generic"
         @click="unaryOperation('logBase2')"
       >
@@ -224,6 +251,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="logBaseY"
         class="calc-btn-generic"
         @click="binaryOperation('logBaseY')"
       >
@@ -233,6 +261,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="square"
         class="calc-btn-generic"
         @click="unaryOperation('square')"
       >
@@ -240,7 +269,7 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="pi">
+      <button type="button" id="pi" class="calc-btn-generic" @click="pi">
         &#x3C0;
       </button>
     </div>
@@ -250,6 +279,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="factorial"
         class="calc-btn-generic"
         @click="unaryOperation('factorial')"
       >
@@ -259,6 +289,7 @@
     <div class="col-2">
       <button
         type="button"
+        id="negate"
         class="calc-btn-generic"
         @click="unaryOperation('negate')"
       >
@@ -266,14 +297,19 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="swap">swap</button>
+      <button type="button" id="swap" class="calc-btn-generic" @click="swap">
+        swap
+      </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="roll">roll</button>
+      <button type="button" id="roll" class="calc-btn-generic" @click="roll">
+        roll
+      </button>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="mod"
         class="calc-btn-generic"
         @click="binaryOperation('modulus')"
       >
@@ -281,7 +317,12 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="eulersNumber">
+      <button
+        type="button"
+        id="e"
+        class="calc-btn-generic"
+        @click="eulersNumber"
+      >
         e
       </button>
     </div>
@@ -289,33 +330,54 @@
     <!-- Top numerical row: includes AC, memory add, numbers, and division -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="allClear">
+      <button type="button" id="AC" class="calc-btn-generic" @click="allClear">
         AC
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="memoryAdd">
+      <button
+        type="button"
+        id="m-add"
+        class="calc-btn-generic"
+        @click="memoryAdd"
+      >
         m+
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('7')">
+      <button
+        type="button"
+        id="num7"
+        class="calc-btn-num"
+        @click="addDigit('7')"
+      >
         7
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('8')">
+      <button
+        type="button"
+        id="num8"
+        class="calc-btn-num"
+        @click="addDigit('8')"
+      >
         8
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('9')">
+      <button
+        type="button"
+        id="num9"
+        class="calc-btn-num"
+        @click="addDigit('9')"
+      >
         9
       </button>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="divide"
         class="calc-btn-highlight fw-bold"
         @click="binaryOperation('divide')"
       >
@@ -326,33 +388,59 @@
     <!-- Includes memory clear, memory subtract, numbers, and multiplication -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="memoryClear">
+      <button
+        type="button"
+        id="MC"
+        class="calc-btn-generic"
+        @click="memoryClear"
+      >
         MC
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="memorySubtract">
+      <button
+        type="button"
+        id="m-"
+        class="calc-btn-generic"
+        @click="memorySubtract"
+      >
         m-
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('4')">
+      <button
+        type="button"
+        id="num4"
+        class="calc-btn-num"
+        @click="addDigit('4')"
+      >
         4
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('5')">
+      <button
+        type="button"
+        id="num5"
+        class="calc-btn-num"
+        @click="addDigit('5')"
+      >
         5
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('6')">
+      <button
+        type="button"
+        id="num6"
+        class="calc-btn-num"
+        @click="addDigit('6')"
+      >
         6
       </button>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="multiply"
         class="calc-btn-highlight fw-bold"
         @click="binaryOperation('multiply')"
       >
@@ -363,33 +451,59 @@
     <!-- Second to last row: includes CE, memory input, numbers, and subtraction -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="clearEntry">
+      <button
+        type="button"
+        id="CE"
+        class="calc-btn-generic"
+        @click="clearEntry"
+      >
         CE
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="memoryInput">
+      <button
+        type="button"
+        id="m-in"
+        class="calc-btn-generic"
+        @click="memoryInput"
+      >
         m in
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('1')">
+      <button
+        type="button"
+        id="num1"
+        class="calc-btn-num"
+        @click="addDigit('1')"
+      >
         1
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('2')">
+      <button
+        type="button"
+        id="num2"
+        class="calc-btn-num"
+        @click="addDigit('2')"
+      >
         2
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('3')">
+      <button
+        type="button"
+        id="num3"
+        class="calc-btn-num"
+        @click="addDigit('3')"
+      >
         3
       </button>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="subtract"
         class="calc-btn-highlight fw-bold"
         @click="binaryOperation('subtract')"
       >
@@ -400,29 +514,54 @@
     <!-- Final row: includes drop, memory recall, 0, decimal point, enter, and addition -->
 
     <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="drop">drop</button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="calc-btn-generic" @click="memoryRecall">
-        m re
+      <button type="button" id="drop" class="calc-btn-generic" @click="drop">
+        drop
       </button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="calc-btn-num" @click="addDigit('0')">
-        0
-      </button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="calc-btn-num fw-bold" @click="addDigit('.')">
-        .
-      </button>
-    </div>
-    <div class="col-2">
-      <div class="calc-btn-highlight" @click="enter">enter</div>
     </div>
     <div class="col-2">
       <button
         type="button"
+        id="m-re"
+        class="calc-btn-generic"
+        @click="memoryRecall"
+      >
+        m re
+      </button>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        id="num0"
+        class="calc-btn-num"
+        @click="addDigit('0')"
+      >
+        0
+      </button>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        id="decimal"
+        class="calc-btn-num fw-bold"
+        @click="addDigit('.')"
+      >
+        .
+      </button>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        id="enter"
+        class="calc-btn-highlight"
+        @click="enter"
+      >
+        enter
+      </button>
+    </div>
+    <div class="col-2">
+      <button
+        type="button"
+        id="add"
         class="calc-btn-highlight fw-bold"
         @click="binaryOperation('add')"
       >
