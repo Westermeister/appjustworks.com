@@ -1,32 +1,15 @@
-# Command variables.
-ESLINT=npx eslint
-GZIP=gzip
+# Variables for repeated use.
 PLAYWRIGHT=npx playwright
-POSTCSS=NODE_ENV=production npx postcss
-PRETTIER=npx prettier
-PURGECSS=npx purgecss
-PYTHON=python3
-SASS=npx sass
-WEBPACK=npx webpack
+PLAYWRIGHT_FLAGS=--browser=all
 
 # Important paths.
-WEBROOT=./frontend
-SCRIPTS_DIR=$(WEBROOT)/scripts
-STYLES_DIR=$(WEBROOT)/styles
-
-# Store flags into these variables.
-GZIP_FLAGS=-9 --keep --force --recursive
-PLAYWRIGHT_FLAGS=--browser=all
-POSTCSS_FLAGS=--replace
-PRETTIER_FLAGS=--write "$(WEBROOT)/**/*.{html,scss,tsx,ts,vue}" "$(SCRIPTS_DIR)/src/**/*.js" "./tests/**/*.spec.ts" "./*.{js,json}"
-PURGECSS_FLAGS=--css $(STYLES_DIR)/dist/main.css --content "./frontend/**/*.{html,tsx,vue}" --output $(STYLES_DIR)/dist/
-SASS_FLAGS=--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
-WEBPACK_FLAGS=--config ./webpack.config.js
+FRONTEND_DIST=./frontend/dist
+FRONTEND_SRC=./frontend/src
 
 # BEGIN: Standard targets.
 
 .PHONY: all
-all: eslint html prettier scripts styles
+all: dist eslint html images misc prettier scripts styles
 
 .PHONY: check
 check: prettier
@@ -40,32 +23,51 @@ check-rank: prettier
 check-postfix: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/postfix.spec.ts
 
+.PHONY: clean
+clean:
+	rm -rf $(FRONTEND_DIST)
+
 # END: Standard targets.
+
+.PHONY: dist
+dist:
+	mkdir -p $(FRONTEND_DIST)
+	mkdir -p $(FRONTEND_DIST)/images
+	mkdir -p $(FRONTEND_DIST)/styles
+	mkdir -p $(FRONTEND_DIST)/scripts
+	mkdir -p $(FRONTEND_DIST)/apps
 
 .PHONY: eslint
 eslint: prettier
-	$(ESLINT) "$(SCRIPTS_DIR)/src/**/*.tsx"
+	npx eslint "$(FRONTEND_SRC)/scripts/**/*.tsx"
 
 .PHONY: html
-html: prettier
-	$(foreach file, $(wildcard $(WEBROOT)/*.html), $(GZIP) $(GZIP_FLAGS) $(file);)
-	$(foreach file, $(wildcard $(WEBROOT)/apps/*.html), $(GZIP) $(GZIP_FLAGS) $(file);)
+html: dist prettier
+	cp $(FRONTEND_SRC)/*.html $(FRONTEND_DIST)
+	cp $(FRONTEND_SRC)/apps/*.html $(FRONTEND_DIST)/apps
+
+.PHONY: images
+images: dist
+	# Trailing "/." means to copy over CONTENTS of folder, not folder itself.
+	cp -r $(FRONTEND_SRC)/images/. $(FRONTEND_DIST)/images
+
+.PHONY: misc
+misc:
+	cp $(FRONTEND_SRC)/robots.txt $(FRONTEND_SRC)/sitemap.xml $(FRONTEND_DIST)
 
 .PHONY: prettier
 prettier:
-	$(PRETTIER) $(PRETTIER_FLAGS)
+	npx prettier --write "$(FRONTEND_SRC)/**/*.{html,scss,tsx,ts,js,vue}" "./tests/**/*.spec.ts" "./*.{js,json}"
 
 .PHONY: scripts
 scripts: eslint prettier
-	rm -rf $(SCRIPTS_DIR)/dist
-	$(WEBPACK) $(WEBPACK_FLAGS)
-	$(PYTHON) ./copywriter.py
-	$(GZIP) $(GZIP_FLAGS) $(SCRIPTS_DIR)/dist
+	npx webpack --config ./webpack.config.js
+	python3 ./copywriter.py
 
 .PHONY: styles
 styles: prettier
-	rm -rf $(STYLES_DIR)/dist
-	$(SASS) $(STYLES_DIR)/src:$(STYLES_DIR)/dist $(SASS_FLAGS)
-	$(PURGECSS) $(PURGECSS_FLAGS)
-	$(POSTCSS) $(STYLES_DIR)/dist/main.css $(POSTCSS_FLAGS)
-	$(GZIP) $(GZIP_FLAGS) $(STYLES_DIR)/dist
+	npx sass $(FRONTEND_SRC)/styles:$(FRONTEND_DIST)/styles \
+	--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
+	npx purgecss --css $(FRONTEND_DIST)/styles/main.css \
+	--content "$(FRONTEND_SRC)/**/*.{html,tsx,vue}" --output $(FRONTEND_DIST)/styles/
+	NODE_ENV=production npx postcss $(FRONTEND_DIST)/styles/main.css --replace

@@ -3,8 +3,8 @@
 import os
 
 # Get relative paths to each source file.
-sources = os.listdir("./frontend/scripts/src")
-sources = [os.path.join(".", "frontend", "scripts", "src", filename) for filename in sources]
+sources = os.listdir("./frontend/src/scripts")
+sources = [os.path.join(".", "frontend", "src", "scripts", filename) for filename in sources]
 # Get rid of auxiliary files from Vue. We're only concerned with the source entry points.
 for i in reversed(range(len(sources))):
   if ".vue" in sources[i]:
@@ -12,8 +12,8 @@ for i in reversed(range(len(sources))):
 sources.sort()
 
 # Get relative paths to each dist file.
-dists = os.listdir("./frontend/scripts/dist")
-dists = [os.path.join(".", "frontend", "scripts", "dist", filename) for filename in dists]
+dists = os.listdir("./frontend/dist/scripts")
+dists = [os.path.join(".", "frontend", "dist", "scripts", filename) for filename in dists]
 dists.sort()
 
 # Prepend the copyright notices.
