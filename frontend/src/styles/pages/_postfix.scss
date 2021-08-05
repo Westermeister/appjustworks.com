@@ -27,14 +27,32 @@
     .py-1,
     .px-3,
     .mb-1,
-    .text-end,
-    .fs-5;
+    .text-end;
 }
 
 #display > div {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.25rem;
+}
+
+@media screen and (min-width: 500px) {
+  #display > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #display > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 2rem;
+  }
 }
 
 @mixin calc-btn {
