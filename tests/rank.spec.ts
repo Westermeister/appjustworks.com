@@ -1,3 +1,8 @@
+/**
+ * Tests for rank app.
+ * Copyright (c) 2021 Westermeister. All rights reserved.
+ */
+
 import { test, expect } from "@playwright/test";
 
 test("Add items", async ({ page }) => {

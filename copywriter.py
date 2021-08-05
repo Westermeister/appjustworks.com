@@ -1,3 +1,5 @@
+# Copyright (c) 2021 Westermeister. All rights reserved.
+
 """Writes copyright notices to dist files from source files."""
 
 import os

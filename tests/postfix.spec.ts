@@ -1,4 +1,9 @@
 /**
+ * Tests for postfix/rpn calculator.
+ * Copyright (c) 2021 Westermeister. All rights reserved.
+ */
+
+/**
  * IMPORTANT NOTE: Always, always use the ID for "page.click" calls. There are nuances like unicode, special
  * sub/superscript formatting, etc. that make trying to select via text surprisingly difficult.
  */
