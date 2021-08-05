@@ -31,5 +31,5 @@
       "version": "17"
     }
   },
-  "ignorePatterns": ["*.js"]
+  "ignorePatterns": ["./*.js"]
 }
