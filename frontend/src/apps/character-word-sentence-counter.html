@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--
+  HTML for: Character, word, and sentence counter | App Just Works (https://appjustworks.com/apps/character-word-sentence-counter)
+  Copyright (c) 2021 Westermeister. All rights reserved.
+-->
+<!--
+  Thanks to Twemoji for the red letter "A" emoji!
+  Twemoji (https://twemoji.twitter.com/) by Twitter, Inc and other contributors
+  is licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
+-->
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <title>Character, word, and sentence counter | App Just Works</title>
+    <meta
+      name="description"
+      content="Count the number of characters, words, and sentences in your text."
+    />
+    <link
+      rel="canonical"
+      href="https://appjustworks.com/apps/character-word-sentence-counter"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-light mb-5">
+      <div class="container-fluid">
+        <a class="navbar-brand h1 mb-0" href="#">
+          <img
+            src="/images/logo.svg"
+            alt="Image of the letter A"
+            width="30"
+            height="30"
+            class="d-inline-block align-text-top me-1"
+          />
+          App Just Works
+        </a>
+      </div>
+    </nav>
+    <div class="container">
+      <header class="mb-5">
+        <h1>Character, word, and sentence counter</h1>
+        <p class="fst-italic">
+          Count the number of characters, words, and sentences in your text.
+        </p>
+      </header>
+      <main>
+        <div class="mb-2">
+          <div id="character-feedback">
+            <span id="num-characters">0</span> characters
+          </div>
+          <div id="word-feedback"><span id="num-words">0</span> words</div>
+          <div id="sentence-feedback">
+            <span id="num-sentences">0</span> sentences
+          </div>
+        </div>
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Enter your text here"
+            id="input-field"
+            style="height: 150px"
+          ></textarea>
+          <label for="input-field">Enter your text here</label>
+        </div>
+      </main>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/sbd@1.0.19/dist/sbd.min.js"
+      integrity="sha256-gT1Ws3kEwsTjE1dfVO3myZ2+Hfuf5TD+Y2aTyCAQYjE="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/scripts/character.js"></script>
+  </body>
+</html>

@@ -10,6 +10,7 @@ module.exports = {
   entry: {
     rank: `${SCRIPTS_SRC}/rank.tsx`,
     postfix: `${SCRIPTS_SRC}/postfix.js`,
+    character: `${SCRIPTS_SRC}/character.js`,
   },
   module: {
     rules: [
@@ -42,5 +43,6 @@ module.exports = {
     react: "React",
     "react-dom": "ReactDOM",
     vue: "Vue",
+    sbd: "tokenizer",
   },
 };
