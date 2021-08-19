@@ -13,7 +13,7 @@ const numSentences = document.querySelector("#num-sentences");
 // Select the input field and listen for changes.
 const inputField = document.querySelector("#input-field");
 inputField.addEventListener("input", () => {
-  const currentInputValue = inputField.value;
+  const currentInputValue = inputField.value.replace(/[\r\n]/g, "");
 
   // Update number of characters.
   numChars.innerText = String(currentInputValue.length);
