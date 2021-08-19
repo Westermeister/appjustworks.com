@@ -23,6 +23,10 @@ check-rank: prettier
 check-postfix: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/postfix.spec.ts
 
+.PHONY: check-character
+check-character: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/character.spec.ts
+
 .PHONY: clean
 clean:
 	rm -rf $(FRONTEND_DIST)
