@@ -20,6 +20,17 @@ nav {
   background-color: $body-bg;
 }
 
+/** To center the logo and text in the navbar. */
+.navbar-flex {
+  display: flex;
+  align-items: center;
+}
+
+/** A little spacing so that the logo and text in navbar aren't squished together. */
+.in-app-logo {
+  margin-right: 0.125rem;
+}
+
 /** Styling for homepage logo in title. */
 #homepage-title-logo {
   height: 1em;
