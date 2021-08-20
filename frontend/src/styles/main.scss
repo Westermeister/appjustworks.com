@@ -35,3 +35,23 @@ $input-placeholder-color-alt: #808080;
     background-color: $body-bg-alt;
   }
 }
+
+/** Styling for homepage logo in title. */
+#homepage-title-logo {
+  height: 1em;
+  width: 1em;
+}
+
+/** Styling for each feature in the homepage's feature list. */
+#feature-list > li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/** Styling for the emojis within the homepage's feature list. */
+.feature-list-emoji {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.5em;
+}
