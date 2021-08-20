@@ -5,35 +5,19 @@
 
 // To fit in with the logo.
 $primary: #dc3545;
-// Dark mode variant.
-$primary-alt: #b02a37;
 
-// Go a little easier on the eyes with a lower contrast white and black (light mode only).
-// Dark mode variants are handled automatically by bootstrap-dark.
+// Go a little easier on the eyes with a lower contrast white and black.
 $white: #f5f5f5;
 $black: #2b2b2b;
 
-// Form placeholders in dark mode are a little too low contrast, so brighten them up a bit.
-$input-placeholder-color-alt: #808080;
-
-@import "bootstrap-dark-5/scss/bootstrap-dark";
+@import "bootstrap";
 
 @import "./pages/postfix";
 @import "./pages/rank";
 
-/**
- * Navbar styling for light and dark modes.
- * Background is flush with rest of the page i.e. no visible borders.
- */
-@media (prefers-color-scheme: light) {
-  nav {
-    background-color: $body-bg;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav {
-    background-color: $body-bg-alt;
-  }
+/** Navbar background is flush with rest of the page i.e. no visible borders. */
+nav {
+  background-color: $body-bg;
 }
 
 /** Styling for homepage logo in title. */
