@@ -23,8 +23,7 @@
     "react/no-unescaped-entities": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-function-return-type": "warn"
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "settings": {
     "react": {
