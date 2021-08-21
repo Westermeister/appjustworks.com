@@ -11,6 +11,7 @@ module.exports = {
     rank: `${SCRIPTS_SRC}/rank.tsx`,
     postfix: `${SCRIPTS_SRC}/postfix.js`,
     character: `${SCRIPTS_SRC}/character.js`,
+    homepage: `${SCRIPTS_SRC}/homepage.tsx`,
   },
   module: {
     rules: [
