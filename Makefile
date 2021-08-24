@@ -43,7 +43,7 @@ dist:
 
 .PHONY: eslint
 eslint: prettier
-	npx eslint "$(FRONTEND_SRC)/scripts/**/*.{js,tsx}"
+	npx eslint "$(FRONTEND_SRC)/scripts/**/*.{js,tsx,vue}"
 
 .PHONY: html
 html: dist prettier

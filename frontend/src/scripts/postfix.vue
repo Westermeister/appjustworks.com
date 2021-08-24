@@ -572,6 +572,9 @@
 </template>
 
 <script lang="ts">
+// ESLint somehow thinks this is React code and bugs me when I have "useSomeFunctionName" anywhere... No thanks, bro!
+/* eslint react-hooks/rules-of-hooks: "off" */
+
 import { defineComponent, ref, Ref } from "vue";
 
 /**
