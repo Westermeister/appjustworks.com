@@ -36,14 +36,14 @@ clean:
 .PHONY: dist
 dist:
 	mkdir -p $(FRONTEND_DIST)
-	mkdir -p $(FRONTEND_DIST)/images
-	mkdir -p $(FRONTEND_DIST)/styles
-	mkdir -p $(FRONTEND_DIST)/scripts
+	mkdir -p $(FRONTEND_DIST)/assets/images
+	mkdir -p $(FRONTEND_DIST)/assets/styles
+	mkdir -p $(FRONTEND_DIST)/assets/scripts
 	mkdir -p $(FRONTEND_DIST)/apps
 
 .PHONY: eslint
 eslint: prettier
-	npx eslint "$(FRONTEND_SRC)/scripts/**/*.{js,tsx,vue}"
+	npx eslint "$(FRONTEND_SRC)/assets/scripts/**/*.{js,tsx,vue}"
 
 .PHONY: html
 html: dist prettier
@@ -53,7 +53,7 @@ html: dist prettier
 .PHONY: images
 images: dist
 	# Trailing "/." means to copy over CONTENTS of folder, not folder itself.
-	cp -r $(FRONTEND_SRC)/images/. $(FRONTEND_DIST)/images
+	cp -r $(FRONTEND_SRC)/assets/images/. $(FRONTEND_DIST)/assets/images
 
 .PHONY: misc
 misc:
@@ -70,8 +70,8 @@ scripts: eslint prettier
 
 .PHONY: styles
 styles: prettier
-	npx sass $(FRONTEND_SRC)/styles:$(FRONTEND_DIST)/styles \
+	npx sass $(FRONTEND_SRC)/assets/styles:$(FRONTEND_DIST)/assets/styles \
 	--load-path=node_modules --load-path=node_modules/bootstrap/scss --no-source-map --quiet
-	npx purgecss --css $(FRONTEND_DIST)/styles/main.css \
-	--content "$(FRONTEND_SRC)/**/*.{html,tsx,vue}" --output $(FRONTEND_DIST)/styles/
-	NODE_ENV=production npx postcss $(FRONTEND_DIST)/styles/main.css --replace
+	npx purgecss --css $(FRONTEND_DIST)/assets/styles/main.css \
+	--content "$(FRONTEND_SRC)/**/*.{html,tsx,vue}" --output $(FRONTEND_DIST)/assets/styles/
+	NODE_ENV=production npx postcss $(FRONTEND_DIST)/assets/styles/main.css --replace

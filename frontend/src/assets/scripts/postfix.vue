@@ -681,7 +681,7 @@ function useMathOperation(
       case "invert":
         result = 1 / operand;
         break;
-      case "round":
+      case "round": {
         // Implement banker's rounding i.e. round half towards even.
         const roundedHalfUp = Math.round(operand);
         const roundedHalfDown = -Math.round(-operand);
@@ -693,6 +693,7 @@ function useMathOperation(
           result = roundedHalfDown;
         }
         break;
+      }
       default:
         result = NaN;
         break;
