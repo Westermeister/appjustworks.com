@@ -12,6 +12,7 @@ module.exports = {
     postfix: `${SCRIPTS_SRC}/postfix.js`,
     character: `${SCRIPTS_SRC}/character.js`,
     homepage: `${SCRIPTS_SRC}/homepage.tsx`,
+    age: `${SCRIPTS_SRC}/age.js`,
   },
   module: {
     rules: [
@@ -45,5 +46,6 @@ module.exports = {
     "react-dom": "ReactDOM",
     vue: "Vue",
     sbd: "tokenizer",
+    luxon: "luxon",
   },
 };
