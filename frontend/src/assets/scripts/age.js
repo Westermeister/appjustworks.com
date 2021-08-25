@@ -1,5 +1,5 @@
 /**
- * Script for: Age Calculator | App Just Works (https://appjustworks.com/apps/age-calculator)
+ * Script for: Age Calculator | App Just Works
  * Copyright (c) 2021 Westermeister. All rights reserved.
  */
 

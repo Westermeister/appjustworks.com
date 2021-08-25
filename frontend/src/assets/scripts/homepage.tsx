@@ -1,5 +1,5 @@
 /**
- * Script for: App Just Works (https://appjustworks)
+ * Script for: App Just Works (homepage)
  * Copyright (c) 2021 Westermeister. All rights reserved.
  */
 

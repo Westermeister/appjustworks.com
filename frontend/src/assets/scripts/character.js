@@ -1,5 +1,5 @@
 /**
- * Script for: Character, word, and sentence counter | App Just Works (https://appjustworks.com/apps/character-word-sentence-counter)
+ * Script for: Character, word, and sentence counter | App Just Works
  * Copyright (c) 2021 Westermeister. All rights reserved.
  */
 

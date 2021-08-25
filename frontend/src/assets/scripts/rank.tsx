@@ -1,5 +1,5 @@
 /**
- * Script for: Rank a list of items | App Just Works (https://appjustworks/apps/rank-a-list-of-items)
+ * Script for: Rank a list of items | App Just Works
  * Copyright (c) 2021 Westermeister. All rights reserved.
  */
 
