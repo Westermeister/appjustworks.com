@@ -12,6 +12,7 @@ import ReactDOM from "react-dom";
  */
 function App(): JSX.Element {
   const apps = [
+    ["Age Calculator", "/apps/age-calculator"],
     [
       "Character, word, and sentence counter",
       "/apps/character-word-sentence-counter",
