@@ -27,6 +27,10 @@ check-postfix: prettier
 check-character: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/character.spec.ts
 
+.PHONY: check-age
+check-age: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/age.spec.ts
+
 .PHONY: clean
 clean:
 	rm -rf $(FRONTEND_DIST)

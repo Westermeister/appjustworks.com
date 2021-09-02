@@ -7,13 +7,18 @@
   <form class="mb-4">
     <div class="mb-3">
       <p>Enter your birthday</p>
-      <input v-model="birthday" type="date" />
+      <input id="birthday-input" v-model="birthday" type="date" />
     </div>
     <div class="mb-3">
       <p>Enter a future date (default: today)</p>
-      <input v-model="future" type="date" />
+      <input id="future-input" v-model="future" type="date" />
     </div>
-    <button type="button" class="btn btn-primary" @click="renderAge()">
+    <button
+      id="compute-age"
+      type="button"
+      class="btn btn-primary"
+      @click="renderAge()"
+    >
       Submit
     </button>
   </form>
@@ -31,9 +36,11 @@
         },
       ]"
       >Age:&nbsp;</span
-    ><span :class="{ 'text-danger': ageOutput.startsWith('Error') }">{{
-      ageOutput
-    }}</span>
+    ><span
+      id="calculator-output"
+      :class="{ 'text-danger': ageOutput.startsWith('Error') }"
+      >{{ ageOutput }}</span
+    >
   </div>
 </template>
 
