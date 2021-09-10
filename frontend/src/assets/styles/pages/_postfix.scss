@@ -1,0 +1,87 @@
+/*!
+ * Styling for: Postfix (RPN) Calculator | App Just Works
+ * Copyright (c) 2021 Westermeister. All rights reserved.
+ */
+
+#container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  #container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+    margin-top: 3rem;
+  }
+}
+
+#display {
+  @extend .col-12,
+    .border,
+    .border-2,
+    .border-dark,
+    .rounded,
+    .py-1,
+    .px-3,
+    .mb-1,
+    .text-end;
+}
+
+#display > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.25rem;
+}
+
+@media screen and (min-width: 500px) {
+  #display > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #display > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 2rem;
+  }
+}
+
+@mixin calc-btn {
+  @extend .px-0, .col-12, .btn;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.calc-btn {
+  @include calc-btn;
+}
+
+@media screen and (min-width: 375px) {
+  .calc-btn {
+    @include calc-btn;
+    font-size: 1.25rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+}
+
+.calc-btn-num {
+  @extend .calc-btn, .btn-secondary;
+}
+
+.calc-btn-generic {
+  @extend .calc-btn, .btn-dark;
+}
+
+.calc-btn-highlight {
+  @extend .calc-btn, .btn-primary;
+}

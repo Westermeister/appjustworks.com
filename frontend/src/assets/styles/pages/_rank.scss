@@ -1,0 +1,20 @@
+/*!
+ * Styling for: Rank a list of items | App Just Works
+ * Copyright (c) 2021 Westermeister. All rights reserved.
+ */
+
+/**
+ * Change cursor to "pointer finger" style on hover.
+ */
+.pointer-hover {
+  cursor: pointer;
+}
+
+/**
+ * Styling for the pairwise choices during the ranking process.
+ */
+.choice {
+  font-size: 2rem;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}

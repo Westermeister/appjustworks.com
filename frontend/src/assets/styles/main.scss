@@ -1,0 +1,52 @@
+/*!
+ * Styling for: App Just Works
+ * Copyright (c) 2021 Westermeister. All rights reserved.
+ */
+
+// To fit in with the logo.
+$primary: #dc3545;
+
+// Go a little easier on the eyes with a lower contrast white and black.
+$white: #f5f5f5;
+$black: #2b2b2b;
+
+@import "bootstrap";
+
+@import "./pages/postfix";
+@import "./pages/rank";
+
+/** Navbar background is flush with rest of the page i.e. no visible borders. */
+nav {
+  background-color: $body-bg;
+}
+
+/** To center the logo and text in the navbar. */
+.navbar-flex {
+  display: flex;
+  align-items: center;
+}
+
+/** A little spacing so that the logo and text in navbar aren't squished together. */
+.in-app-logo {
+  margin-right: 0.125rem;
+}
+
+/** Styling for homepage logo in title. */
+#homepage-title-logo {
+  height: 1em;
+  width: 1em;
+}
+
+/** Styling for each feature in the homepage's feature list. */
+#feature-list > li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/** Styling for the emojis within the homepage's feature list. */
+.feature-list-emoji {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.5em;
+}
