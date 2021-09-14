@@ -3,8 +3,8 @@ PLAYWRIGHT=npx playwright
 PLAYWRIGHT_FLAGS=--browser=all
 
 # Important paths.
-FRONTEND_DIST=./frontend/dist
-FRONTEND_SRC=./frontend/src
+FRONTEND_DIST=./dist/frontend
+FRONTEND_SRC=./src/frontend
 
 # BEGIN: Standard targets.
 
@@ -33,7 +33,7 @@ check-age: prettier
 
 .PHONY: clean
 clean:
-	rm -rf $(FRONTEND_DIST)
+	rm -rf ./dist
 
 # END: Standard targets.
 

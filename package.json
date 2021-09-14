@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "npx http-server ./dist/frontend -s -e -p 8080"
+  },
   "devDependencies": {
     "@playwright/test": "1.12.3",
     "@types/luxon": "2.0.0",

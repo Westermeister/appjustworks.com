@@ -3,7 +3,7 @@ const path = require("path");
 const { VueLoaderPlugin } = require("vue-loader");
 const WebpackObfuscator = require("webpack-obfuscator");
 
-const SCRIPTS_SRC = "./frontend/src/assets/scripts";
+const SCRIPTS_SRC = "./src/frontend/assets/scripts";
 
 module.exports = {
   mode: "production",
@@ -35,7 +35,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    path: path.resolve(__dirname, "frontend", "dist", "assets", "scripts"),
+    path: path.resolve(__dirname, "dist", "frontend", "assets", "scripts"),
     filename: "[name].js",
   },
   externals: {
