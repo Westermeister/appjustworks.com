@@ -46,3 +46,14 @@ test("Test leap year birthday on march 1", async ({ page }) => {
   const age = await page.innerText("#calculator-output");
   expect(age).toBe("1 year(s), 0 month(s), 1 day(s)");
 });
+
+test("Test invalid inputs", async ({ page }) => {
+  await page.goto("http://localhost:8080/apps/age-calculator");
+  await page.fill("#birthday-input", "2020-01-01");
+  await page.fill("#future-input", "1970-01-01");
+  await page.click("#compute-age");
+  const age = await page.innerText("#calculator-output");
+  expect(age).toBe(
+    "Error: The birthday value has to be earlier than the future value!"
+  );
+});
