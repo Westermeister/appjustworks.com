@@ -23,25 +23,17 @@
     </button>
   </form>
   <div
-    :class="{
-      'text-danger': ageOutput.startsWith('Error'),
-    }"
+    v-if="ageOutput.startsWith('Error')"
+    id="calculator-output"
+    class="text-danger"
   >
-    <span
-      :class="[
-        'fw-bold',
-        {
-          'visually-hidden':
-            ageOutput.startsWith('Error') || ageOutput.length === 0,
-        },
-      ]"
-      >Age:&nbsp;</span
-    ><span
-      id="calculator-output"
-      :class="{ 'text-danger': ageOutput.startsWith('Error') }"
-      >{{ ageOutput }}</span
-    >
+    {{ ageOutput }}
   </div>
+  <div v-else-if="ageOutput.length > 0">
+    <span class="fw-bold">Age:&nbsp;</span>
+    <span id="calculator-output">{{ ageOutput }}</span>
+  </div>
+  <div v-else></div>
 </template>
 
 <script setup lang="ts">
