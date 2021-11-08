@@ -17,8 +17,8 @@ function App(): JSX.Element {
       "Character, word, and sentence counter",
       "/apps/character-word-sentence-counter",
     ],
-    ["Postfix (RPN) Calculator", "/apps/postfix-rpn-calculator"],
     ["Rank a list of items", "/apps/rank-a-list-of-items"],
+    ["RPN Calculator", "/apps/rpn-calculator"],
   ];
   const [input, setInput] = React.useState("");
 

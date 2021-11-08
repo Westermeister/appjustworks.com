@@ -1,5 +1,5 @@
 /**
- * Tests for postfix/rpn calculator.
+ * Tests for the RPN calculator.
  * Copyright (c) 2021 Westermeister. All rights reserved.
  */
 
@@ -11,11 +11,11 @@
 import { test, expect } from "@playwright/test";
 
 test("Use basic 4 functions", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
 
   // Ensure we're on the right page.
   const title = await page.innerText("title");
-  expect(title).toEqual("Postfix (RPN) Calculator | App Just Works");
+  expect(title).toEqual("RPN Calculator | App Just Works");
 
   // Evaluate expression: (((2 - 3) * 5) / 10) + 9
   // Should give us: 8.5
@@ -38,7 +38,7 @@ test("Use basic 4 functions", async ({ page }) => {
 });
 
 test("Use memory buttons, clear buttons, and drop button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   // Add 5 to memory, then clear entry, then ensure we can get 5 back, then reset.
   await page.click("#num5");
   await page.click("#m-in");
@@ -89,7 +89,7 @@ test("Use memory buttons, clear buttons, and drop button", async ({ page }) => {
 test("Use factorial and negative button and euler's number", async ({
   page,
 }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   // Compute 5!, negate it, and multiply be e.
   await page.click("#num5");
   await page.click("#factorial");
@@ -102,7 +102,7 @@ test("Use factorial and negative button and euler's number", async ({
 });
 
 test("Use swap, roll, and mod buttons", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   // Add 1, 2, 3, and input 4, then swap, then roll, then modulus.
   await page.click("#num1");
   await page.click("#enter");
@@ -124,7 +124,7 @@ test("Use swap, roll, and mod buttons", async ({ page }) => {
 });
 
 test("Test fixed log buttons", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   // Test log base 10.
   await page.click("#num1");
   await page.click("#num0");
@@ -153,7 +153,7 @@ test("Test fixed log buttons", async ({ page }) => {
 });
 
 test("Test variable log", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num2");
   await page.click("#enter");
   await page.click("#num6");
@@ -164,7 +164,7 @@ test("Test variable log", async ({ page }) => {
 });
 
 test("Test pi and square button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#pi");
   await page.click("#square");
   const result = await page.innerText("#input-field");
@@ -172,7 +172,7 @@ test("Test pi and square button", async ({ page }) => {
 });
 
 test("Test fixed exp buttons", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num3");
   await page.click("#powerOf10");
   let result = await page.innerText("#input-field");
@@ -194,7 +194,7 @@ test("Test fixed exp buttons", async ({ page }) => {
 });
 
 test("Test variable exp button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num1");
   await page.click("#num0");
   await page.click("#enter");
@@ -205,7 +205,7 @@ test("Test variable exp button", async ({ page }) => {
 });
 
 test("Test sqrt", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num2");
   await page.click("#num5");
   await page.click("#sqrt");
@@ -214,7 +214,7 @@ test("Test sqrt", async ({ page }) => {
 });
 
 test("Test variable sqrt", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num2");
   await page.click("#num7");
   await page.click("#enter");
@@ -225,7 +225,7 @@ test("Test variable sqrt", async ({ page }) => {
 });
 
 test("Test trig functions on radians", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#sin");
   let result = await page.innerText("#input-field");
   expect(result).toEqual("0");
@@ -262,7 +262,7 @@ test("Test trig functions on radians", async ({ page }) => {
 });
 
 test("Test trig functions on degrees", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#deg");
 
   await page.click("#sin");
@@ -301,7 +301,7 @@ test("Test trig functions on degrees", async ({ page }) => {
 });
 
 test("Test percent button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num1");
   await page.click("#num6");
   await page.click("#num0");
@@ -317,7 +317,7 @@ test("Test percent button", async ({ page }) => {
 });
 
 test("Test percent diff button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num5");
   await page.click("#num0");
   await page.click("#enter");
@@ -329,7 +329,7 @@ test("Test percent diff button", async ({ page }) => {
 });
 
 test("Test invert button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num0");
   await page.click("#decimal");
   await page.click("#num1");
@@ -339,7 +339,7 @@ test("Test invert button", async ({ page }) => {
 });
 
 test("Test round button", async ({ page }) => {
-  await page.goto("http://localhost:8080/apps/postfix-rpn-calculator");
+  await page.goto("http://localhost:8080/apps/rpn-calculator");
   await page.click("#num1");
   await page.click("#decimal");
   await page.click("#num5");

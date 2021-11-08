@@ -9,7 +9,7 @@ module.exports = {
   mode: "production",
   entry: {
     rank: `${SCRIPTS_SRC}/rank.tsx`,
-    postfix: `${SCRIPTS_SRC}/postfix.js`,
+    rpn: `${SCRIPTS_SRC}/rpn.js`,
     character: `${SCRIPTS_SRC}/character.js`,
     homepage: `${SCRIPTS_SRC}/homepage.tsx`,
     age: `${SCRIPTS_SRC}/age.js`,

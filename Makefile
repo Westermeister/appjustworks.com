@@ -19,9 +19,9 @@ check: prettier
 check-rank: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/rank.spec.ts
 
-.PHONY: check-postfix
-check-postfix: prettier
-	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/postfix.spec.ts
+.PHONY: check-rpn
+check-rpn: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/rpn.spec.ts
 
 .PHONY: check-character
 check-character: prettier

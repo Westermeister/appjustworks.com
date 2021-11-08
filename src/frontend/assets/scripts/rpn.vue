@@ -1,5 +1,5 @@
 <!--
-  Vue SFC for: Postfix (RPN) Calculator | App Just Works
+  Vue SFC for: RPN Calculator | App Just Works
   Copyright (c) 2021 Westermeister. All rights reserved.
 -->
 
@@ -9,15 +9,24 @@
       {{ stack[stack.length - 3] }}
     </div>
     <div v-else id="row-3">&nbsp;</div>
+
     <div v-if="hasIndex(stack.length - 2)" id="row-2">
       {{ stack[stack.length - 2] }}
     </div>
     <div v-else id="row-2">&nbsp;</div>
-    <div v-if="hasIndex(stack.length - 1)" id="row-1">
-      {{ stack[stack.length - 1] }}
+
+    <div class="variable-row">
+      <div class="variable">y:</div>
+      <div v-if="hasIndex(stack.length - 1)" id="row-1">
+        {{ stack[stack.length - 1] }}
+      </div>
+      <div v-else id="row-1">&nbsp;</div>
     </div>
-    <div v-else id="row-1">&nbsp;</div>
-    <div id="input-field">{{ inputField }}</div>
+
+    <div class="variable-row">
+      <div class="variable">x:</div>
+      <div id="input-field">{{ inputField }}</div>
+    </div>
   </div>
   <div class="row g-1">
     <!-- Radian/degree toggle, percent and percent diff ops, inverse op, and rounding function -->
