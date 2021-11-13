@@ -1,3 +1,8 @@
+# 2021.11.12
+
+- Added a new application: Case Converter
+  - Allows users to easily convert text between various cases e.g. lowercase, uppercase, etc.
+
 # 2021.11.09
 
 - Updated RPN calculator.
