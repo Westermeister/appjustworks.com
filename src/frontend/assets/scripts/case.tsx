@@ -118,7 +118,7 @@ function Results(props: { textInput: string; caseInput: string }): JSX.Element {
       return (
         <li
           className="list-group-item d-flex justify-content-between align-items-start"
-          style={{ whiteSpace: "pre" }}
+          style={{ whiteSpace: "pre-wrap" }}
         >
           <div className="ms-2 me-auto">
             <div className="mb-2">
