@@ -31,6 +31,10 @@ check-character: prettier
 check-age: prettier
 	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/age.spec.ts
 
+.PHONY: check-case
+check-case: prettier
+	$(PLAYWRIGHT) test $(PLAYWRIGHT_FLAGS) tests/case.spec.ts
+
 .PHONY: clean
 clean:
 	rm -rf ./dist

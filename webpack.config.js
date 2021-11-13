@@ -13,6 +13,7 @@ module.exports = {
     character: `${SCRIPTS_SRC}/character.js`,
     homepage: `${SCRIPTS_SRC}/homepage.tsx`,
     age: `${SCRIPTS_SRC}/age.js`,
+    case: `${SCRIPTS_SRC}/case.tsx`,
   },
   module: {
     rules: [
