@@ -1,3 +1,7 @@
+# 2021.11.12.1
+
+- Added wrapping for long text in the outputs for the case converter.
+
 # 2021.11.12
 
 - Added a new application: Case Converter
