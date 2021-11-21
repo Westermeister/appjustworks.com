@@ -1,3 +1,7 @@
+# 2021.11.20
+
+- Added a simple explanation of the repository's structure to `README.md`.
+
 # 2021.11.12.1
 
 - Added wrapping for long text in the outputs for the case converter.
