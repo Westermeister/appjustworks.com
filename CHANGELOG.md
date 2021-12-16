@@ -1,3 +1,7 @@
+# 2021.12.15
+
+- Simplified RPN calculator's implementation via Vue's `script setup` syntax.
+
 # 2021.11.20
 
 - Added a simple explanation of the repository's structure to `README.md`.
