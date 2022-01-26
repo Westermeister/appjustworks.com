@@ -15,6 +15,22 @@
  */
 .choice {
   font-size: 2rem;
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/**
+ * Styling for back button's container (to center the button).
+ */
+.back-button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * Styling for back button.
+ */
+.back-button {
+  @extend .btn, .btn-secondary, .btn-lg;
+  width: fit-content;
 }

@@ -109,38 +109,38 @@ function InputPhase(props: {
           </>
         )}
         {(!props.premade || modifyClicked) && (
-          <p>
-            Add each item below, in any order. You must add at least 2 items.
-          </p>
-        )}
-        {(!props.premade || modifyClicked) && (
-          <form onSubmit={addItem}>
-            <div className="row mb-3">
-              <div className="col-sm-8 col-md-6">
-                <input
-                  required
-                  className="form-control"
-                  type="text"
-                  value={input}
-                  onChange={(e): void => setInput(e.target.value)}
-                  placeholder="Enter an item"
-                  aria-describedby="inputHelp"
-                />
-                {!props.premade && (
-                  <div id="inputHelp" className="form-text">
-                    e.g. if you were ranking countries, you might add items like
-                    "Japan" or "Germany"
-                  </div>
-                )}
+          <>
+            <p>
+              Add each item below, in any order. You must add at least 2 items.
+            </p>
+            <form onSubmit={addItem}>
+              <div className="row mb-3">
+                <div className="col-sm-8 col-md-6">
+                  <input
+                    required
+                    className="form-control"
+                    type="text"
+                    value={input}
+                    onChange={(e): void => setInput(e.target.value)}
+                    placeholder="Enter an item"
+                    aria-describedby="inputHelp"
+                  />
+                  {!props.premade && (
+                    <div id="inputHelp" className="form-text">
+                      e.g. if you were ranking countries, you might add items
+                      like "Japan" or "Germany"
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            {duplicate && (
-              <p className="text-danger">Item is already in list.</p>
-            )}
-            <button type="submit" className="btn btn-primary">
-              Add
-            </button>
-          </form>
+              {duplicate && (
+                <p className="text-danger">Item is already in list.</p>
+              )}
+              <button type="submit" className="btn btn-primary">
+                Add
+              </button>
+            </form>
+          </>
         )}
         <ul className="list-group my-4">{renderItems(props.items)}</ul>
         {(!props.premade || modifyClicked) && props.items.length >= 2 && (
@@ -195,8 +195,37 @@ function RankPhase(props: {
   const rightArray = React.useRef(ranked.current[pairIndex.current]);
   const mergedArray = React.useRef([] as string[]);
 
+  // Finally, history state vars for going back in case the user misclicks a button.
+  const rankedHistory = React.useRef([] as string[][][]);
+  const pairIndexHistory = React.useRef([] as number[]);
+  const leftIndexHistory = React.useRef([] as number[]);
+  const rightIndexHistory = React.useRef([] as number[]);
+  const leftOptionHistory = React.useRef([] as string[]);
+  const rightOptionHistory = React.useRef([] as string[]);
+  const leftArrayHistory = React.useRef([] as string[][]);
+  const rightArrayHistory = React.useRef([] as string[][]);
+  const mergedArrayHistory = React.useRef([] as string[][]);
+
+  // Back button is initially disabled, but will be enabled once at least one ranking step has passed.
+  const [backButtonEnabled, setBackButtonEnabled] = React.useState(false);
+
   // The most important (and most complicated) part: perform a SINGLE STEP of mergesort.
   const mergeSortStep = (chosen: string): void => {
+    // Before we make ANY changes to the state, add it to history.
+    if (!backButtonEnabled) {
+      setBackButtonEnabled(true);
+    }
+    // CRITICAL: Don't forget to use spread syntax to add a COPY of arrays to history, NOT A REFERENCE!
+    rankedHistory.current.push([...ranked.current]);
+    pairIndexHistory.current.push(pairIndex.current);
+    leftIndexHistory.current.push(leftIndex.current);
+    rightIndexHistory.current.push(rightIndex.current);
+    leftOptionHistory.current.push(leftOption);
+    rightOptionHistory.current.push(rightOption);
+    leftArrayHistory.current.push([...leftArray.current]);
+    rightArrayHistory.current.push([...rightArray.current]);
+    mergedArrayHistory.current.push([...mergedArray.current]);
+
     // Add the chosen one to the merged array and increment the corresponding index.
     if (chosen === leftOption) {
       mergedArray.current.push(leftOption);
@@ -241,12 +270,17 @@ function RankPhase(props: {
     // 2) The pairIndex DOES point to something, but it's the first element i.e. 0, so there's no "pair" at all.
     // 3) The pairIndex DOES point to something, AND it has another element to the left.
     pairIndex.current -= 2;
-
-    // We handle cases 1 and 2 the same by resetting the index, because there's no pair to merge.
-    // Otherwise, we leave things as is.
-    if (pairIndex.current <= 0) {
+    if (pairIndex.current === 0) {
+      // We run into the second case only when the number of items to rank is odd.
+      // We handle it by doing a merge between the first array (index 0) and the second array (index 1).
+      // Right now, all we have to do is set the pairIndex to index 1, and the merge will happen the next time...
+      // ...the user clicks an option. Since this creates an even number of arrays, this code should only run once.
+      pairIndex.current = 1;
+    } else if (pairIndex.current < 0) {
+      // The first case is much simpler: just reset the pairIndex to the last array.
       pairIndex.current = ranked.current.length - 1;
     }
+    // As for the third case, we don't have to do anything!
 
     // Now that we have a valid pairIndex, we can start the merge process again.
     // Begin by setting the relevant state vars.
@@ -259,6 +293,26 @@ function RankPhase(props: {
     // Finally, update the options so that we can get another choice from the user.
     setLeftOption(leftArray.current[leftIndex.current]);
     setRightOption(rightArray.current[rightIndex.current]);
+  };
+
+  // Allow the user to go back if they make a mistake.
+  const goBack = (): void => {
+    ranked.current = rankedHistory.current.pop()!;
+    pairIndex.current = pairIndexHistory.current.pop()!;
+    leftIndex.current = leftIndexHistory.current.pop()!;
+    rightIndex.current = rightIndexHistory.current.pop()!;
+    setLeftOption(leftOptionHistory.current.pop()!);
+    setRightOption(rightOptionHistory.current.pop()!);
+    leftArray.current = leftArrayHistory.current.pop()!;
+    rightArray.current = rightArrayHistory.current.pop()!;
+    mergedArray.current = mergedArrayHistory.current.pop()!;
+
+    // All the history arrays should be of same length.
+    // So if we know ONE of them is empty, they're ALL empty...
+    // ...which means we're at the beginning, and there's no more history, so disable the back button.
+    if (rankedHistory.current.length === 0) {
+      setBackButtonEnabled(false);
+    }
   };
 
   return (
@@ -283,6 +337,21 @@ function RankPhase(props: {
             onClick={(): void => mergeSortStep(rightOption)}
           >
             {rightOption}
+          </div>
+          <div className="back-button-container">
+            {!backButtonEnabled && (
+              <div
+                className="back-button disabled"
+                onClick={(): void => goBack()}
+              >
+                Back
+              </div>
+            )}
+            {backButtonEnabled && (
+              <div className="back-button" onClick={(): void => goBack()}>
+                Back
+              </div>
+            )}
           </div>
         </div>
       </main>
