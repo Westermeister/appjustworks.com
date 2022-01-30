@@ -175,3 +175,37 @@ test("From shared list to custom one", async ({ page }) => {
   expect(await results[2].innerText()).toEqual("3");
   expect(await results[3].innerText()).toEqual("4");
 });
+
+test("Do ranking but involve back button", async ({ page }) => {
+  await page.goto("http://localhost:8080/apps/rank-a-list-of-items");
+
+  // Add some items.
+  await page.fill("#app input", "2");
+  await page.click("'Add'");
+  await page.fill("#app input", "1");
+  await page.click("'Add'");
+  await page.fill("#app input", "3");
+  await page.click("'Add'");
+  await page.fill("#app input", "4");
+  await page.click("'Add'");
+
+  // Now submit and go through ranking process.
+  await page.click("'Next'");
+  await page.click("'4'");
+  await page.click("'1'");
+  await page.click("'4'");
+  await page.click("'Back'");
+  await page.click("'Back'");
+  await page.click("'Back'");
+  await page.click("'3'");
+  await page.click("'1'");
+  await page.click("'1'");
+  await page.click("'2'");
+
+  // That should've given us a ranking of: 1, 2, 3, 4
+  const results = await page.$$("#app li");
+  expect(await results[0].innerText()).toEqual("1");
+  expect(await results[1].innerText()).toEqual("2");
+  expect(await results[2].innerText()).toEqual("3");
+  expect(await results[3].innerText()).toEqual("4");
+});
